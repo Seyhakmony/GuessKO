@@ -4,86 +4,86 @@ import './game.css';
 
 const gameData = [
     {
-        videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
+        videoPath: './clips/BucklyW.mp4',
+        correctAnswer: 'Joaquin Buckley',
+        correctVideo: './correct/Buckly_vs.mp4',
         hint1: 'This fighter is known for his left hand power',
         hint2: 'He\'s a former Middle Weight Champion'
     },
     {
-        videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
+        videoPath: './clips/ConorW.mp4',
+        correctAnswer: 'Conor Mcgregor',
+        correctVideo: './correct/Conor_vs_Aldo.mp4',
+        hint1: 'This fighter is known for his left hand power',
+        hint2: 'He\'s from Ireland and loves to talk trash'
+    },
+    {
+        videoPath: './clips/IliaW.mp4',
+        correctAnswer: 'Ilia Topuria',
+        correctVideo: './correct/Ilia_vs_Alex.mp4',
+        hint1: 'This fighter is known for his left hand power',
+        hint2: 'He\'s from Ireland and loves to talk trash'
+    },
+    {
+        videoPath: './clips/Izzy_AlexW.mp4',
+        correctAnswer: 'Israel Adesanya',
+        correctVideo: './correct/Alex_vs_Izzy2.mp4',
         hint1: 'This fighter is known for his left hand power',
         hint2: 'He\'s from Ireland and loves to talk trash'
     },
     {
         videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
+        correctAnswer: 'Israel Adesanya',
         correctVideo: './correct/Izzy_vs_Rob.mp4',
         hint1: 'This fighter is known for his left hand power',
         hint2: 'He\'s from Ireland and loves to talk trash'
     },
     {
-        videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
+        videoPath: './clips/KaiFranceW.mp4',
+        correctAnswer: 'Kai Kara-france',
+        correctVideo: './correct/France_vs_Cody.mp4',
         hint1: 'This fighter is known for his left hand power',
         hint2: 'He\'s from Ireland and loves to talk trash'
     },
     {
-        videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
+        videoPath: './clips/LeonW.mp4',
+        correctAnswer: 'Leon Edwards',
+        correctVideo: './correct/Leon_vs_Usman.mp4',
         hint1: 'This fighter is known for his left hand power',
         hint2: 'He\'s from Ireland and loves to talk trash'
     },
     {
-        videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
+        videoPath: './clips/MasvidalW.mp4',
+        correctAnswer: 'Jorge Masvidal',
+        correctVideo: './correct/Masvidal_vs_Askren.mp4',
         hint1: 'This fighter is known for his left hand power',
         hint2: 'He\'s from Ireland and loves to talk trash'
     },
     {
-        videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
+        videoPath: './clips/MaxHollowayW.mp4',
+        correctAnswer: 'Max Holloway',
+        correctVideo: './correct/Max_vs_Justin.mp4',
         hint1: 'This fighter is known for his left hand power',
         hint2: 'He\'s from Ireland and loves to talk trash'
     },
     {
-        videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
+        videoPath: './clips/OmalleyW.mp4',
+        correctAnswer: "Sean O'malley",
+        correctVideo: './correct/Omalley_vs_White.mp4',
         hint1: 'This fighter is known for his left hand power',
         hint2: 'He\'s from Ireland and loves to talk trash'
     },
     {
-        videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
+        videoPath: './clips/SilvaW.mp4',
+        correctAnswer: 'Anderson Silva',
+        correctVideo: './correct/Silva_vs_Griffin.mp4',
         hint1: 'This fighter is known for his left hand power',
         hint2: 'He\'s from Ireland and loves to talk trash'
     },
     {
-        videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
-        hint1: 'This fighter is known for his left hand power',
-        hint2: 'He\'s from Ireland and loves to talk trash'
-    },
-    {
-        videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
-        hint1: 'This fighter is known for his left hand power',
-        hint2: 'He\'s from Ireland and loves to talk trash'
-    },
-    {
-        videoPath: './clips/IzzyW.mp4',
-        correctAnswer: 'Izzy',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
+        videoPath: './clips/VolkanW.mp4',
+        correctAnswer: 'Volkan Oezdemir',
+        correctVideo: './correct/Oezdemir_vs_Walker.mp4',
         hint1: 'This fighter is known for his left hand power',
         hint2: 'He\'s from Ireland and loves to talk trash'
     }
