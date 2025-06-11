@@ -1,0 +1,172 @@
+.difficulty-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.difficulty-menu {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 2px solid #444;
+  animation: slideIn 0.3s ease-out;
+}
+
+.difficulty-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #444;
+  padding-bottom: 15px;
+}
+
+.difficulty-header h2 {
+  color: #fff;
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: #999;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.close-button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.difficulty-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.difficulty-card {
+  background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+  border-radius: 15px;
+  padding: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.difficulty-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.difficulty-card.easy {
+  border-color: #4caf50;
+}
+
+.difficulty-card.easy:hover {
+  background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+  box-shadow: 0 15px 30px rgba(76, 175, 80, 0.3);
+}
+
+.difficulty-card.medium {
+  border-color: #ff9800;
+}
+
+.difficulty-card.medium:hover {
+  background: linear-gradient(135deg, #ff9800 0%, #ffb74d 100%);
+  box-shadow: 0 15px 30px rgba(255, 152, 0, 0.3);
+}
+
+.difficulty-card.hard {
+  border-color: #f44336;
+}
+
+.difficulty-card.hard:hover {
+  background: linear-gradient(135deg, #f44336 0%, #ef5350 100%);
+  box-shadow: 0 15px 30px rgba(244, 67, 54, 0.3);
+}
+
+.difficulty-card h3 {
+  color: #fff;
+  margin: 0 0 15px 0;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.difficulty-description {
+  color: #ccc;
+}
+
+.difficulty-description p {
+  margin: 8px 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.difficulty-card:hover .difficulty-description {
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .difficulty-menu {
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .difficulty-header h2 {
+    font-size: 24px;
+  }
+  
+  .difficulty-card {
+    padding: 20px;
+  }
+  
+  .difficulty-card h3 {
+    font-size: 20px;
+  }
+  
+  .difficulty-description p {
+    font-size: 14px;
+  }
+}
