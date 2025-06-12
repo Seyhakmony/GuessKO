@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getLeaderboard } from './FirebaseS/data.js'
-import { auth } from './FirebaseS/firebase.js'
+
 
 const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, onLogout, userProfile, setUserProfile }) => {
   const [leaderboardData, setLeaderboardData] = useState([])
@@ -107,26 +107,25 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
       React.createElement('div', { className: 'game-modes' },
         React.createElement('div', { className: 'mode-card daily-card' },
           React.createElement('div', { className: 'card-header' },
-            React.createElement('div', { className: 'mode-icon' }, '📅'),
-            React.createElement('h3', { className: 'mode-title' }, 'Daily Challenge'),
-            React.createElement('div', { className: 'streak-badge' }, 'NEW!')
-          ),
-          React.createElement('p', { className: 'mode-description' },
-             'One knockout question per day. Build your streak and climb the leaderboard!'
-          ),
-           React.createElement('button', {
-            className: 'mode-button daily-button',
-            onClick: onStartDaily
-          },
-             React.createElement('span', { className: 'button-text' }, 'START DAILY CHALLENGE'),
-            React.createElement('span', { className: 'button-arrow' }, '→')
-          )
+  React.createElement('div', { className: 'mode-icon' }, '🎮'),
+  React.createElement('h3', { className: 'mode-title' }, 'Levels'),
+
+),
+React.createElement('p', { className: 'mode-description' },
+  'Progress through levels by completing challenges. Each level gets more difficult, but the rewards are greater!'
+),
+React.createElement('button', {
+  className: 'mode-button daily-button',
+  onClick: onStartDaily
+},
+  React.createElement('span', { className: 'button-text' }, 'START LEVELS'),
+  React.createElement('span', { className: 'button-arrow' }, '→')
+)
         ),
         React.createElement('div', { className: 'mode-card quiz-card' },
           React.createElement('div', { className: 'card-header' },
             React.createElement('div', { className: 'mode-icon' }, '🎯'),
             React.createElement('h3', { className: 'mode-title' }, 'Quiz Mode'),
-            React.createElement('div', { className: 'difficulty-indicator' }, 'MULTI-LEVEL')
           ),
           React.createElement('p', { className: 'mode-description' },
              'Answer multiple questions in a row with different difficulty levels and compete for high scores.'

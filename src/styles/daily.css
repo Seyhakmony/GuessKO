@@ -1,227 +1,364 @@
-Daily Challenge Styles
-.daily-challenge {
+/* Levels Challenge Main Container */
+.levels-challenge {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  min-height: 100vh;
 }
 
-.daily-header {
+/* Levels Header */
+.levels-header {
   text-align: center;
   margin-bottom: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-.daily-title {
+.levels-title {
   font-size: 2.5rem;
-  color: #d4af37;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.daily-subtitle {
+.levels-subtitle {
   font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  opacity: 0.9;
+  line-height: 1.6;
 }
 
-.calendar-container {
-  max-width: 800px;
-  margin: 0 auto;
+/* Levels Container and Grid */
+.levels-container {
+  width: 100%;
 }
 
-.calendar-container h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 30px;
-}
-
-.calendar-grid {
+.levels-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 20px 0;
 }
 
-.calendar-day {
-  background: #f8f9fa;
-  border: 2px solid #e9ecef;
-  border-radius: 12px;
+/* Level Cards */
+.level-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
   padding: 20px;
-  text-align: center;
-  cursor: pointer;
+  border: 2px solid transparent;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   position: relative;
-  min-height: 100px;
+  overflow: hidden;
+}
+
+.level-card.unlocked {
+  cursor: pointer;
+}
+
+.level-card.unlocked:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.level-card.locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.level-card.completed-correct {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: #4CAF50 !important;
+}
+
+.level-card.completed-incorrect {
+  background: rgba(244, 67, 54, 0.2);
+  border-color: #f44336 !important;
+}
+
+/* Level Header (inside card) */
+.level-header {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-.calendar-day:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.calendar-day.today {
-  border-color: #d4af37;
-  background: linear-gradient(135deg, #fff9e6, #f8f9fa);
-}
-
-.calendar-day.available {
-  border-color: #28a745;
-  background: linear-gradient(135deg, #f8fff9, #f8f9fa);
-}
-
-.calendar-day.completed-correct {
-  border-color: #28a745;
-  background: linear-gradient(135deg, #d4edda, #f8f9fa);
-}
-
-.calendar-day.completed-incorrect {
-  border-color: #dc3545;
-  background: linear-gradient(135deg, #f8d7da, #f8f9fa);
-}
-
-.day-label {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
-.day-number {
-  font-size: 1.8rem;
+.level-number {
+  font-size: 2rem;
   font-weight: bold;
-  color: #333;
+  background: linear-gradient(45deg, #ffd93d, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.completion-badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  font-size: 1.2rem;
+.level-status {
+  font-size: 1.5rem;
 }
 
-.daily-question {
-  max-width: 800px;
+/* Level Info */
+.level-info {
+  text-align: left;
+}
+
+.difficulty-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.level-description {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.level-stats {
+  font-size: 0.9rem;
+  color: #ffd93d;
+  font-weight: bold;
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* Level Question View */
+.level-question {
+  width: 100%;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
 }
 
-.daily-question-header {
+.level-question-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #e9ecef;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
 }
 
-.daily-question-header h2 {
-  color: #d4af37;
-  margin: 0;
+.question-info h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.level-meta {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.difficulty-indicator {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .attempts-info {
-  color: #666;
-  margin: 5px 0 0 0;
-}
-
-/* Game Mode Cards for Welcome Screen */
-.game-modes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
-}
-
-.mode-card {
-  background: linear-gradient(135deg, #f8f9fa, #ffffff);
-  border: 2px solid #e9ecef;
-  border-radius: 15px;
-  padding: 30px;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.mode-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  border-color: #d4af37;
-}
-
-.mode-card h3 {
-  color: #333;
-  margin-bottom: 15px;
-  font-size: 1.5rem;
-}
-
-.mode-card p {
-  color: #666;
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-
-.mode-card ul {
-  text-align: left;
-  color: #555;
-  margin-bottom: 25px;
-}
-
-.mode-card li {
-  margin-bottom: 8px;
-}
-
-.mode-button {
-  background: linear-gradient(135deg, #d4af37, #b8941f);
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
   font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
 }
 
-.mode-button:hover {
-  background: linear-gradient(135deg, #b8941f, #9d7a1a);
-  transform: translateY(-2px);
+
+.hint-section {
+    margin: 20px 0;
+    text-align: center;
 }
 
-.quiz-button {
-  background: linear-gradient(135deg, #007bff, #0056b3);
+
+
+.hint-button {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #333;
+    border: none;
+    padding: 1vh 1vw;
+    padding-bottom: 1.5vh;
+    padding-right: 1.4vw;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.quiz-button:hover {
-  background: linear-gradient(135deg, #0056b3, #004085);
+.hint-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+    background: linear-gradient(135deg, #ffed4e, #ffd700);
 }
 
-.daily-button {
-  background: linear-gradient(135deg, #28a745, #1e7e34);
+.hint-button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
 }
 
-.daily-button:hover {
-  background: linear-gradient(135deg, #1e7e34, #155724);
+.hint-button:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
+
+.hint-display {
+    margin-top: 15px;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    border: 2px solid #2196f3;
+    border-radius: 12px;
+    animation: fadeInHint 0.5s ease-in-out;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hint-display p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1565c0;
+    text-align: center;
+}
+
+.hint-1, .hint-2{
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    border: 2px solid #2196f3;
+}
+
+.hint-1 p, .hint-2 p{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1565c0;
+}
+
+
+.next-button:first-of-type {
+  margin-bottom: 2vh;
+}
+
+
+@keyframes fadeInHint {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .calendar-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
+  .levels-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
   }
   
-  .calendar-day {
-    padding: 15px;
-    min-height: 80px;
+  .levels-title {
+    font-size: 2rem;
   }
   
-  .day-number {
+  .levels-subtitle {
+    font-size: 1rem;
+  }
+  
+  .level-question-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .level-meta {
+    justify-content: center;
+  }
+  
+  .level-number {
     font-size: 1.5rem;
   }
+
+
+
+
+
+
+
   
-  .game-modes {
+}
+
+
+
+@media (max-width: 480px) {
+
+    .hint-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .hint-display {
+        margin: 15px 10px;
+        padding: 12px 16px;
+    }
+    
+    .hint-display p {
+        font-size: 14px;
+    }
+
+  .levels-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 15px;
+  }
+  
+  .levels-header {
+    padding: 20px;
+  }
+  
+  .levels-title {
+    font-size: 1.8rem;
+  }
+  
+  .level-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .question-info h2 {
+    font-size: 1.5rem;
   }
 }
