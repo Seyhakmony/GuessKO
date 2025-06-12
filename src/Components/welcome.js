@@ -9,7 +9,7 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
   useEffect(() => {
     const loadLeaderboard = async () => {
       try {
-        const data = await getLeaderboard(5)
+        const data = await getLeaderboard(10)
         setLeaderboardData(data)
         
         
