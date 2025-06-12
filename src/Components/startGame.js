@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import fighters from './MMAFighters.js';
 import '../styles/game.css';
+import { addPointsToUser } from './FirebaseS/data.js'
 
 const gameData = [
     {
@@ -90,7 +91,7 @@ const gameData = [
 ]
 
 
-const GameScreen = ({ onBackToWelcome, difficulty = 'medium' }) => {
+const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userProfile }) => {
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [attempts, setAttempts] = useState(0)
     const [userAnswer, setUserAnswer] = useState('')
@@ -108,7 +109,26 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium' }) => {
 
     const [gaveUp, setGaveUp] = useState(false)
     const [vissbleS, setVissbleS] = useState(15)
+    const [totalPointsAfterGame, setTotalPointsAfterGame] = useState(null)
 
+    const handleGameEnd = async (finalScore) => {
+        if (!currentUser || !userProfile) {
+            return
+        }
+
+        if (finalScore > 0) {
+            try {
+                await addPointsToUser(currentUser.uid, finalScore)
+                const newTotal = (userProfile.points || 0) + finalScore
+                setTotalPointsAfterGame(newTotal)
+            } catch (error) {
+                console.error('Error adding points:', error)
+            }
+        } else {
+            console.log('Score is 0 or negative, not adding points')
+            setTotalPointsAfterGame(userProfile.points || 0)
+        }
+    }
 
 
     const getDifficultyConfig = () => {
@@ -150,7 +170,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium' }) => {
 
                 return fighterName.includes(searchTerm) ||
                     nameParts.some(part => part.startsWith(searchTerm))
-            }).slice(0, vissbleS)//drop down amunt
+            }).slice(0, vissbleS)//drop down amount
             setSuggestions(filtered)
             setShowSuggestions(true)
         } else {
@@ -200,6 +220,21 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium' }) => {
         }
     }
 
+    const getMaxPossiblePoints = () => {
+    let maxPointsPerQuestion = 0
+    
+    if (difficulty === 'easy') {
+        maxPointsPerQuestion = 4
+    } else if (difficulty === 'medium') {
+        maxPointsPerQuestion = 3
+    } else {
+        maxPointsPerQuestion = 5
+    }
+    
+    return gameData.length * maxPointsPerQuestion
+}
+
+
     const checkAnswer = () => {
         if (!userAnswer.trim()) {
             setFeedback('Please enter an answer!')
@@ -233,14 +268,13 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium' }) => {
             setShowCorrectVideo(true)
             setFeedback('🎉 Correct! Great job!')
 
-            // Score calculation based on difficulty
             let points = 0
             if (difficulty === 'easy') {
-                points = Math.max(1, 4 - attempts) // 1-4 points
+                points = Math.max(1, 4 - attempts)
             } else if (difficulty === 'medium') {
-                points = 3 - attempts // 1-3 points
-            } else { // hard
-                points = 5 // 5 points for hard mode
+                points = 3 - attempts
+            } else { 
+                points = 5
             }
             setScore(score + points)
         } else {
@@ -267,11 +301,12 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium' }) => {
     }
 
 
-    const nextQuestion = () => {
+    const nextQuestion = async () => {
         if (currentQuestion < gameData.length - 1) {
             setCurrentQuestion(currentQuestion + 1)
             resetQuestion()
         } else {
+            await handleGameEnd(score)
             setGameComplete(true)
         }
     }
@@ -293,9 +328,9 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium' }) => {
         setCurrentQuestion(0)
         setScore(0)
         setGameComplete(false)
+        setTotalPointsAfterGame(null)
         resetQuestion()
     }
-
     const handleKeyPress = (e) => {
         if (e.key === 'Enter' && !isCorrect && !gaveUp && attempts < config.maxAttempts) {
             checkAnswer()
@@ -307,8 +342,10 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium' }) => {
             React.createElement('div', { className: 'complete-content' },
                 React.createElement('h2', null, '🏆 Game Complete! 🏆'),
                 React.createElement('p', { className: 'final-score' }, `Final Score: ${score} points`),
+                currentUser && userProfile && totalPointsAfterGame !== null &&
+                React.createElement('p', { className: 'total-points' }, `Total Points: ${totalPointsAfterGame}`),
                 React.createElement('p', { className: 'score-breakdown' },
-                    `Out of ${gameData.length} questions with a maximum of ${gameData.length * 3} points`,
+                    `Out of ${gameData.length} questions with a maximum of ${getMaxPossiblePoints()} points`,
                 ),
                 React.createElement('div', { className: 'complete-buttons' },
                     React.createElement('button', {
@@ -407,7 +444,6 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium' }) => {
                             disabled: isCorrect || gaveUp || attempts >= config.maxAttempts,
                             className: 'submit-button'
                         }, 'SUBMIT'),
-                        // Only show Give Up button on Easy mode and when not correct/given up
                         difficulty === 'easy' && !isCorrect && !gaveUp && React.createElement('button', {
                             onClick: handleGiveUp,
                             className: 'give-up-button'

@@ -12,6 +12,7 @@ const GameContent = () => {
   const [showDaily, setShowDaily] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [difficulty, setDifficulty] = useState('medium')
+  const [userProfile, setUserProfile] = useState(null) 
   
   const { currentUser, logout } = useAuth()
 
@@ -24,6 +25,7 @@ const GameContent = () => {
   const handleLogout = async () => {
     try {
       await logout()
+      setUserProfile(null)
       alert('Logged out successfully!')
     } catch (error) {
       console.error('Logout error:', error)
@@ -49,7 +51,8 @@ const GameContent = () => {
           onStartDaily: showDailyChallenge,
           onShowLogin: showLoginModal,
           currentUser: currentUser,
-          onLogout: handleLogout
+          onLogout: handleLogout,
+          setUserProfile: setUserProfile
         })
       : showDaily
         ? React.createElement(DailyChallenge, {
@@ -57,7 +60,9 @@ const GameContent = () => {
           })
         : React.createElement(StartingGame, {
             onBackToWelcome: backToWelcome,
-            difficulty: difficulty
+            difficulty: difficulty,
+            currentUser: currentUser,
+            userProfile: userProfile
           }),
     showDifficulty && React.createElement(DifficultyMenu, {
       onSelectDifficulty: selectDifficulty,
