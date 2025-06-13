@@ -97,13 +97,13 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
       React.createElement('div', { className: 'hero-section' },
         React.createElement('h1', { className: 'game-title' },
           React.createElement('img', {
-            src: '/images/right.webp',
+            src: '/images/left.webp',
             alt: 'Boxing Glove',
             className: 'title-icon-img'
           }),
           ' GUESS THE KNOCKOUT ',
           React.createElement('img', {
-            src: '/images/left.webp',
+            src: '/images/right.webp',
             alt: 'Boxing Glove',
             className: 'title-icon-img'
           })
