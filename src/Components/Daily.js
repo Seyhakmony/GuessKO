@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import fighters from './MMAFighters.js';
 import '../styles/game.css';
-import  '../styles/daily.css';
+import '../styles/daily.css';
 
 const gameData = [
     {
@@ -9,90 +9,102 @@ const gameData = [
         correctAnswer: 'Joaquin Buckley',
         correctVideo: './correct/Buckly_vs.mp4',
         hint1: 'Explosive fighter',
-        hint2: 'Known for viral knockout highlight'
+        hint2: 'Known for viral knockout highlight',
+        releaseDate: '2025-06-10'
     },
     {
         videoPath: './clips/ConorW.mp4',
         correctAnswer: 'Conor Mcgregor',
-        correctVideo: './correct/Conor_vs_Aldo.mp4',
+        correcVideo: './correct/Conor_vs_Aldo.mp4',
         hint1: 'Southpaw striker',
-        hint2: 'Made boxing debut in 2017'
+        hint2: 'Made boxing debut in 2017',
+        releaseDate: '2025-06-09'
     },
     {
         videoPath: './clips/IliaW.mp4',
         correctAnswer: 'Ilia Topuria',
         correctVideo: './correct/Ilia_vs_Alex.mp4',
         hint1: 'European fighter',
-        hint2: 'Undefeated record holder'
+        hint2: 'Undefeated record holder',
+        releaseDate: '2025-06-08'
     },
     {
         videoPath: './clips/Izzy_AlexW.mp4',
         correctAnswer: 'Israel Adesanya',
         correctVideo: './correct/Alex_vs_Izzy2.mp4',
         hint1: 'Tall striker',
-        hint2: 'Has kickboxing background'
+        hint2: 'Has kickboxing background',
+        releaseDate: '2025-06-07'
     },
     {
         videoPath: './clips/IzzyW.mp4',
         correctAnswer: 'Israel Adesanya',
         correctVideo: './correct/Izzy_vs_Rob.mp4',
         hint1: 'Creative fighter',
-        hint2: 'Trained in New Zealand'
+        hint2: 'Trained in New Zealand',
+        releaseDate: '2025-06-06'
     },
     {
         videoPath: './clips/KaiFranceW.mp4',
         correctAnswer: 'Kai Kara-france',
         correctVideo: './correct/France_vs_Cody.mp4',
         hint1: 'Smaller weight class',
-        hint2: 'Pacific region fighter'
+        hint2: 'Pacific region fighter',
+        releaseDate: '2025-06-05'
     },
     {
         videoPath: './clips/LeonW.mp4',
         correctAnswer: 'Leon Edwards',
         correctVideo: './correct/Leon_vs_Usman.mp4',
         hint1: 'British fighter',
-        hint2: 'Late-round finisher'
+        hint2: 'Late-round finisher',
+        releaseDate: '2025-06-04'
     },
     {
         videoPath: './clips/MasvidalW.mp4',
         correctAnswer: 'Jorge Masvidal',
         correctVideo: './correct/Masvidal_vs_Askren.mp4',
         hint1: 'Veteran fighter',
-        hint2: 'Set speed record'
+        hint2: 'Set speed record',
+        releaseDate: '2025-06-03'
     },
     {
         videoPath: './clips/MaxHollowayW.mp4',
         correctAnswer: 'Max Holloway',
         correctVideo: './correct/Max_vs_Justin.mp4',
         hint1: 'High-volume striker',
-        hint2: 'Island-born fighter'
+        hint2: 'Island-born fighter',
+        releaseDate: '2025-06-02'
     },
     {
         videoPath: './clips/OmalleyW.mp4',
         correctAnswer: "Sean O'malley",
         correctVideo: './correct/Omalley_vs_White.mp4',
         hint1: 'Colorful personality',
-        hint2: 'Western US fighter'
+        hint2: 'Western US fighter',
+        releaseDate: '2025-06-01'
     },
     {
         videoPath: './clips/SilvaW.mp4',
         correctAnswer: 'Anderson Silva',
         correctVideo: './correct/Silva_vs_Griffin.mp4',
         hint1: 'Brazilian legend',
-        hint2: 'Long title reign'
+        hint2: 'Long title reign',
+        releaseDate: '2025-05-31'
     },
     {
         videoPath: './clips/VolkanW.mp4',
         correctAnswer: 'Volkan Oezdemir',
         correctVideo: './correct/Oezdemir_vs_Walker.mp4',
         hint1: 'European striker',
-        hint2: 'Light heavyweight division'
+        hint2: 'Light heavyweight division',
+        releaseDate: '2025-05-30'
     }
 ]
 
-const DailyChallenge = ({ onBackToWelcome }) => {
-    const [selectedDate, setSelectedDate] = useState(null)
-    const [showCalendar, setShowCalendar] = useState(true)
+const KnockoutArchive = ({ onBackToWelcome }) => {
+    const [selectedLevel, setSelectedLevel] = useState(null)
+    const [showArchive, setShowArchive] = useState(true)
     const [currentData, setCurrentData] = useState(null)
     const [attempts, setAttempts] = useState(0)
     const [userAnswer, setUserAnswer] = useState('')
@@ -103,57 +115,54 @@ const DailyChallenge = ({ onBackToWelcome }) => {
     const [showSuggestions, setShowSuggestions] = useState(false)
     const [usedAnswers, setUsedAnswers] = useState([])
     const [vissbleS, setVissbleS] = useState(15)
-    const [dailyProgress, setDailyProgress] = useState({})
+    const [archiveProgress, setArchiveProgress] = useState({})
+    const [hintsUsed, setHintsUsed] = useState(0)
+    const [showHint, setShowHint] = useState(false)
 
-    // Generate available dates (today and previous days based on gameData length)
-    const generateAvailableDates = () => {
-        const dates = []
-        const today = new Date()
-        
-        for (let i = 0; i < gameData.length; i++) {
-            const date = new Date(today)
-            date.setDate(today.getDate() - i)
-            dates.push({
-                date: date,
-                dateString: date.toDateString(),
-                dayIndex: i,
-                isToday: i === 0
-            })
-        }
-        return dates
-    }
-
-    const availableDates = generateAvailableDates()
-
-    // Get question data for a specific date
-    const getQuestionForDate = (dayIndex) => {
-        // Reverse order so today (index 0) gets the last question
-        const questionIndex = gameData.length - 1 - dayIndex
-        return gameData[questionIndex]
-    }
+    // Sort archive items by date (latest first) and add archive numbers
+    const sortedArchiveData = gameData
+        .map((data, index) => ({
+            ...data,
+            archiveNumber: gameData.length - index,
+            originalIndex: index
+        }))
+        .sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate))
 
     // Load saved progress from memory
-    useEffect(() => {
-        // In a real app, this would load from localStorage
-        // For now, we'll just use in-memory storage
-        const savedProgress = {}
-        setDailyProgress(savedProgress)
-    }, [])
+   useEffect(() => {
+    const savedProgress = JSON.parse(localStorage.getItem('knockoutArchiveProgress') || '{}')
+    setArchiveProgress(savedProgress)
+}, [])
 
     // Save progress to memory
-    const saveProgress = (dateString, correct, attempts) => {
-        const newProgress = {
-            ...dailyProgress,
-            [dateString]: { correct, attempts, completed: true }
-        }
-        setDailyProgress(newProgress)
-        // In a real app, you would save to localStorage here
+const saveProgress = (archiveNumber, correct, attempts) => {
+    const completionData = {
+        correct,
+        attempts,
+        completed: true,
+        completedAt: new Date().toISOString(),
+        hintsUsed: hintsUsed
     }
+    
+    const newProgress = {
+        ...archiveProgress,
+        [archiveNumber]: completionData
+    }
+    
+    setArchiveProgress(newProgress)
+    localStorage.setItem('knockoutArchiveProgress', JSON.stringify(newProgress))
+}
 
-    const handleDateSelect = (dateInfo) => {
-        setSelectedDate(dateInfo)
-        setCurrentData(getQuestionForDate(dateInfo.dayIndex))
-        setShowCalendar(false)
+   const formatDate = (dateString) => {
+    
+    const [year, month, day] = dateString.split('-');
+    return `${parseInt(month)}/${parseInt(day)}/${year}`;
+}
+
+    const handleArchiveSelect = (archiveItem) => {
+        setSelectedLevel(archiveItem.archiveNumber)
+        setCurrentData(gameData[archiveItem.originalIndex])
+        setShowArchive(false)
         resetQuestion()
     }
 
@@ -166,6 +175,8 @@ const DailyChallenge = ({ onBackToWelcome }) => {
         setShowSuggestions(false)
         setUsedAnswers([])
         setVissbleS(15)
+        setHintsUsed(0)
+        setShowHint(false)
     }
 
     const normalizeAnswer = (answer) => {
@@ -175,7 +186,7 @@ const DailyChallenge = ({ onBackToWelcome }) => {
     const handleInputChange = (value) => {
         setUserAnswer(value)
 
-        if (value.length > 0 && !isCorrect && attempts < 3) {
+        if (value.length > 0 && !isCorrect) {
             const filtered = fighters.filter(fighter => {
                 const searchTerm = value.toLowerCase()
                 const fighterName = fighter.toLowerCase()
@@ -192,7 +203,7 @@ const DailyChallenge = ({ onBackToWelcome }) => {
     }
 
     const handleInputFocus = () => {
-        if (userAnswer.length > 0 && !isCorrect && attempts < 3) {
+        if (userAnswer.length > 0 && !isCorrect) {
             const filtered = fighters.filter(fighter => {
                 const searchTerm = userAnswer.toLowerCase()
                 const fighterName = fighter.toLowerCase()
@@ -232,6 +243,20 @@ const DailyChallenge = ({ onBackToWelcome }) => {
         }
     }
 
+    const handleHint = () => {
+        if (hintsUsed < 2) {
+            setHintsUsed(hintsUsed + 1)
+            setShowHint(true)
+        }
+    }
+
+
+const handleRandomFight = () => {
+    const randomIndex = Math.floor(Math.random() * sortedArchiveData.length)
+    const randomArchiveItem = sortedArchiveData[randomIndex]
+    handleArchiveSelect(randomArchiveItem)
+}
+
     const checkAnswer = () => {
         if (!userAnswer.trim()) {
             setFeedback('Please enter an answer!')
@@ -260,105 +285,104 @@ const DailyChallenge = ({ onBackToWelcome }) => {
         if (isAnswerCorrect) {
             setIsCorrect(true)
             setShowCorrectVideo(true)
-            setFeedback('🎉 Correct! Great job!')
-            saveProgress(selectedDate.dateString, true, attempts + 1)
+            setFeedback('🎉 Correct! Archive entry completed!')
+            saveProgress(selectedLevel, true, attempts + 1)
         } else {
             setUsedAnswers([...usedAnswers, userAnswer])
             const newAttempts = attempts + 1
             setAttempts(newAttempts)
             setUserAnswer('')
-
-            if (newAttempts >= 3) {
-                setFeedback(`❌ Sorry, that's incorrect. The answer was: ${currentData.correctAnswer}`)
-                setShowCorrectVideo(true)
-                setIsCorrect(false)
-                saveProgress(selectedDate.dateString, false, newAttempts)
-            } else {
-                const hint = newAttempts === 1 ? currentData.hint1 : currentData.hint2
-                setFeedback(`❌ Incorrect! Hint: ${hint}`)
-            }
+            setFeedback('❌ Incorrect! Try again.')
         }
     }
 
     const handleKeyPress = (e) => {
-        if (e.key === 'Enter' && !isCorrect && attempts < 3) {
+        if (e.key === 'Enter' && !isCorrect) {
             checkAnswer()
         }
     }
 
-    const backToCalendar = () => {
-        setShowCalendar(true)
-        setSelectedDate(null)
+    const backToArchive = () => {
+        setShowArchive(true)
+        setSelectedLevel(null)
         setCurrentData(null)
         resetQuestion()
     }
 
-    const formatDate = (date) => {
-        const today = new Date()
-        const yesterday = new Date(today)
-        yesterday.setDate(today.getDate() - 1)
-        
-        if (date.toDateString() === today.toDateString()) {
-            return 'Today'
-        } else if (date.toDateString() === yesterday.toDateString()) {
-            return 'Yesterday'
-        } else {
-            return date.toLocaleDateString('en-US', { 
-                weekday: 'short', 
-                month: 'short', 
-                day: 'numeric' 
-            })
-        }
-    }
-
-    if (showCalendar) {
-        return React.createElement('div', { className: 'daily-challenge' },
-            React.createElement('div', { className: 'daily-header' },
-                React.createElement('h1', { className: 'daily-title' }, '📅 Daily Challenge'),
-                React.createElement('p', { className: 'daily-subtitle' }, 
-                    'One knockout question per day. Complete your daily challenge!'
-                ),
-                React.createElement('button', {
-                    className: 'back-button-small',
-                    onClick: onBackToWelcome
-                }, '← Back to Menu')
-            ),
-            React.createElement('div', { className: 'calendar-container' },
-                React.createElement('h2', null, 'Select a Day'),
-                React.createElement('div', { className: 'calendar-grid' },
-                    availableDates.map((dateInfo, index) => {
-                        const progress = dailyProgress[dateInfo.dateString]
-                        const isCompleted = progress && progress.completed
-                        const isCorrect = progress && progress.correct
-                        
-                        return React.createElement('div', {
-                            key: index,
-                            className: `calendar-day ${dateInfo.isToday ? 'today' : ''} ${isCompleted ? (isCorrect ? 'completed-correct' : 'completed-incorrect') : 'available'}`,
-                            onClick: () => handleDateSelect(dateInfo)
-                        },
-                            React.createElement('div', { className: 'day-label' }, formatDate(dateInfo.date)),
-                            React.createElement('div', { className: 'day-number' }, dateInfo.date.getDate()),
-                            isCompleted && React.createElement('div', { className: 'completion-badge' },
-                                isCorrect ? '✅' : '❌'
-                            )
-                        )
-                    })
-                )
-            )
-        )
-    }
-
-    // Question view (similar to original game but simplified)
-    return React.createElement('div', { className: 'daily-question' },
-        React.createElement('div', { className: 'daily-question-header' },
-            React.createElement('div', { className: 'question-info' },
-                React.createElement('h2', null, `Daily Challenge - ${formatDate(selectedDate.date)}`),
-                React.createElement('p', { className: 'attempts-info' }, `Attempts: ${attempts}/3`)
+if (showArchive) {
+    return React.createElement('div', { className: 'levels-challenge' },
+        React.createElement('div', { className: 'levels-header' },
+            React.createElement('h1', { className: 'levels-title' }, '📚 Knockout Archive'),
+            React.createElement('p', { className: 'levels-subtitle' },
+                'Browse through our collection of legendary knockouts. Each entry features a classic finish for you to identify!'
             ),
             React.createElement('button', {
                 className: 'back-button-small',
-                onClick: backToCalendar
-            }, '← Back to Calendar')
+                onClick: onBackToWelcome
+            }, '← Back to Menu')
+        ),
+        // Add random fight button here
+        React.createElement('div', { className: 'random-fight-container' },
+            React.createElement('button', {
+                className: 'random-fight-button',
+                onClick: handleRandomFight
+            }, '🎲 Random Fight')
+        ),
+        React.createElement('div', { className: 'levels-container' },
+            React.createElement('div', { className: 'levels-grid' },
+                sortedArchiveData.map((archiveItem) => {
+                    const progress = archiveProgress[archiveItem.archiveNumber]
+                    const isCompleted = progress && progress.completed
+                    const isCorrect = progress && progress.correct
+
+                    return React.createElement('div', {
+                        key: archiveItem.archiveNumber,
+                        className: `level-card archive-card ${isCompleted ? (isCorrect ? 'completed-correct' : 'completed-incorrect') : ''}`,
+                        onClick: () => handleArchiveSelect(archiveItem),
+                        style: {
+                            cursor: 'pointer'
+                        }
+                    },
+                        React.createElement('div', { className: 'archive-header' },
+                            React.createElement('div', { className: 'archive-number' }, `#${archiveItem.archiveNumber}`),
+                            React.createElement('div', { className: 'archive-date' },
+                                formatDate(archiveItem.releaseDate)
+                            ),
+                            React.createElement('div', { className: 'archive-status' },
+                                isCompleted ? (isCorrect ? '✅' : '❌') : '▶'
+                            )
+                        ),
+                        isCompleted && React.createElement('div', { className: 'archive-info' },
+                            React.createElement('p', { className: 'archive-completion' },
+                                `✓ Solved in ${progress.attempts} attempt${progress.attempts !== 1 ? 's' : ''}`
+                            ),
+                            progress.hintsUsed > 0 && React.createElement('p', { className: 'hints-used-info' },
+                                `💡 ${progress.hintsUsed} hint${progress.hintsUsed !== 1 ? 's' : ''} used`
+                            ),
+                            React.createElement('p', { className: 'completion-date' },
+                                `Completed: ${new Date(progress.completedAt).toLocaleDateString()}`
+                            )
+                        )
+                    )
+                })
+            )
+        )
+    )
+}
+
+    // Question view
+    return React.createElement('div', { className: 'level-question' },
+        React.createElement('div', { className: 'level-question-header' },
+            React.createElement('div', { className: 'question-info' },
+                React.createElement('h2', null, `Archive Entry #${selectedLevel}`),
+                React.createElement('div', { className: 'level-meta' },
+                    React.createElement('span', { className: 'attempts-info' }, `Attempts: ${attempts}`)
+                )
+            ),
+            React.createElement('button', {
+                className: 'back-button-small',
+                onClick: backToArchive
+            }, '← Back to Archive')
         ),
         React.createElement('div', { className: 'question-container' },
             React.createElement('h3', { className: 'question-text' }, 'Who scored this knockout?'),
@@ -376,6 +400,25 @@ const DailyChallenge = ({ onBackToWelcome }) => {
                         type: 'video/mp4'
                     }),
                     'Your browser does not support the video tag.'
+                )
+            ),
+            React.createElement('div', { className: 'hint-section' },
+                React.createElement('button', {
+                    onClick: handleHint,
+                    disabled: hintsUsed >= 2 || isCorrect,
+                    className: 'hint-button'
+                }, `💡 Hint (${hintsUsed}/2)`),
+
+                // Display all used hints cumulatively
+                hintsUsed > 0 && React.createElement('div', { className: 'hints-container' },
+                    // First hint
+                    React.createElement('div', { className: 'hint-display hint-1' },
+                        React.createElement('p', null, `${currentData.hint1}`)
+                    ),
+                    // Second hint (only if used)
+                    hintsUsed > 1 && React.createElement('div', { className: 'hint-display hint-2' },
+                        React.createElement('p', null, `${currentData.hint2}`)
+                    )
                 )
             ),
             React.createElement('div', { className: 'input-section' },
@@ -402,7 +445,7 @@ const DailyChallenge = ({ onBackToWelcome }) => {
                             onKeyPress: handleKeyPress,
                             onBlur: () => setTimeout(() => setShowSuggestions(false), 150),
                             placeholder: 'Enter fighter name...',
-                            disabled: isCorrect || attempts >= 3,
+                            disabled: isCorrect,
                             className: 'answer-field'
                         }),
                         showSuggestions && suggestions.length > 0 && React.createElement('div', {
@@ -419,20 +462,22 @@ const DailyChallenge = ({ onBackToWelcome }) => {
                     ),
                     React.createElement('button', {
                         onClick: checkAnswer,
-                        disabled: isCorrect || attempts >= 3,
+                        disabled: isCorrect,
                         className: 'submit-button'
                     }, 'SUBMIT')
                 ),
                 feedback && React.createElement('div', {
                     className: `feedback ${isCorrect ? 'correct' : 'incorrect'}`
                 }, feedback),
-                (isCorrect || attempts >= 3) && React.createElement('button', {
-                    className: 'next-button',
-                    onClick: backToCalendar
-                }, 'BACK TO CALENDAR')
+                isCorrect && React.createElement('div', { className: 'level-complete-buttons' },
+                    React.createElement('button', {
+                        className: 'next-button',
+                        onClick: backToArchive
+                    }, 'BACK TO ARCHIVE')
+                )
             )
         )
     )
 }
 
-export default DailyChallenge
+export default KnockoutArchive

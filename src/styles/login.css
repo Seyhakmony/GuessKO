@@ -1,7 +1,7 @@
 .welcome-header {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 1vh;
+  right: 5vw;
   z-index: 10;
 }
 
@@ -171,7 +171,6 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 10px;
 }
 
 .submit-button:hover {
