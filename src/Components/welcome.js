@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { getLeaderboard } from './FirebaseS/data.js'
 
 
+
 const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, onLogout, userProfile, setUserProfile }) => {
   const [leaderboardData, setLeaderboardData] = useState([])
   const [loadingLeaderboard, setLoadingLeaderboard] = useState(true)
