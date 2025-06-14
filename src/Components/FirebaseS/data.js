@@ -39,7 +39,6 @@ export const createUserProfile = async (userId, userData) => {
   }
 }
 
-// Get user profile
 export const getUserProfile = async (userId) => {
   try {
     const userRef = doc(db, 'users', userId)
@@ -57,7 +56,6 @@ export const getUserProfile = async (userId) => {
   }
 }
 
-// Update user profile
 export const updateUserProfile = async (userId, updates) => {
   try {
     const userRef = doc(db, 'users', userId)
@@ -72,7 +70,6 @@ export const updateUserProfile = async (userId, updates) => {
   }
 }
 
-// New function to add points to user's total
 export const addPointsToUser = async (userId, points) => {
   try {
     const userRef = doc(db, 'users', userId)
@@ -88,39 +85,37 @@ export const addPointsToUser = async (userId, points) => {
   }
 }
 
-// Save user game data/score
-export const saveUserGameData = async (userId, gameData) => {
-  try {
-    const gameRef = collection(db, 'users', userId, 'games')
-    await addDoc(gameRef, {
-      ...gameData,
-      timestamp: new Date().toISOString()
-    })
-    console.log('Game data saved successfully')
-  } catch (error) {
-    console.error('Error saving game data:', error)
-    throw error
-  }
-}
+// export const saveUserGameData = async (userId, gameData) => {
+//   try {
+//     const gameRef = collection(db, 'users', userId, 'games')
+//     await addDoc(gameRef, {
+//       ...gameData,
+//       timestamp: new Date().toISOString()
+//     })
+//     console.log('Game data saved successfully')
+//   } catch (error) {
+//     console.error('Error saving game data:', error)
+//     throw error
+//   }
+// }
 
-// Get user's game history
-export const getUserGameHistory = async (userId, limitCount = 10) => {
-  try {
-    const gameRef = collection(db, 'users', userId, 'games')
-    const q = query(gameRef, orderBy('timestamp', 'desc'), limit(limitCount))
-    const querySnapshot = await getDocs(q)
+// export const getUserGameHistory = async (userId, limitCount = 10) => {
+//   try {
+//     const gameRef = collection(db, 'users', userId, 'games')
+//     const q = query(gameRef, orderBy('timestamp', 'desc'), limit(limitCount))
+//     const querySnapshot = await getDocs(q)
     
-    const games = []
-    querySnapshot.forEach((doc) => {
-      games.push({ id: doc.id, ...doc.data() })
-    })
+//     const games = []
+//     querySnapshot.forEach((doc) => {
+//       games.push({ id: doc.id, ...doc.data() })
+//     })
     
-    return games
-  } catch (error) {
-    console.error('Error getting game history:', error)
-    throw error
-  }
-}
+//     return games
+//   } catch (error) {
+//     console.error('Error getting game history:', error)
+//     throw error
+//   }
+// }
 
 export const updateLastActive = async (userId) => {
   try {
@@ -150,7 +145,7 @@ export const getLeaderboard = async (limitCount = 10) => {
       })
     })
     
-    // Sort again in JavaScript to ensure proper ordering (Firebase might not handle null/undefined values correctly)
+    
     leaderboard.sort((a, b) => b.totalPoints - a.totalPoints)
     
     return leaderboard

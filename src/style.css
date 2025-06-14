@@ -10,6 +10,9 @@ body {
   font-family: 'Arial', sans-serif;
   background: url('/images/ufcbackground.webp');
   background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   min-height: 100vh;
   color: white;
 }
@@ -61,7 +64,8 @@ body {
 }
 
 .leaderboard {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
+   background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(20, 20, 20, 0.5));
   border-radius: 12px;
   padding: 24px;
   margin: 20px 0;
@@ -70,7 +74,7 @@ body {
 }
 
 .leaderboard-title {
-  color: #333;
+  color: #ffffff;
   font-size: 24px;
   font-weight: bold;
   margin: 0 0 20px 0;
@@ -344,8 +348,9 @@ body {
 }
 
 .mode-card {
-  background: linear-gradient(135deg, #f8f9fa, #ffffff);
-  border: 2px solid #e9ecef;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 15px;
   padding: 30px;
   text-align: center;
@@ -354,21 +359,23 @@ body {
 
 .mode-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  border-color: #d4af37;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  border-color: rgba(15, 20, 35, 0.8);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .mode-card h3 {
-  color: #333;
+  color: #ffffff;
   margin-bottom: 15px;
   font-size: 1.5rem;
 }
 
 .mode-card p {
-  color: #666;
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 20px;
   line-height: 1.6;
 }
+
 
 .mode-card ul {
   text-align: left;
@@ -421,6 +428,58 @@ body {
   vertical-align: middle;
   margin: 0 10px;
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+
+
+
+
+
+.simple-footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.simple-footer .footer-text {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+
+@media (max-width: 768px) {
+  .welcome-footer {
+    margin-top: 20px;
+    padding: 20px 0 15px 0;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 15px;
+  }
+  
+  .footer-title {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .footer-text,
+  .footer-list li,
+  .social-text {
+    font-size: 0.8rem;
+  }
+  
+  .footer-bottom {
+    margin-top: 15px;
+    padding-top: 15px;
+  }
+  
+  .footer-copyright {
+    font-size: 0.7rem;
+  }
 }
 
 
@@ -523,6 +582,8 @@ body {
     height: 40px;
     margin: 0 5px;
   }
+
+  
 }
 
 @media (max-width: 480px) {

@@ -20,11 +20,10 @@ const Login = ({ onClose }) => {
 
     try {
       if (showCreateAccount) {
-        // Create new account
         const userCredential = await createUserWithEmailAndPassword(auth, email, password)
         console.log('Account created:', userCredential.user)
 
-        // Create user profile in Firestore
+
         try {
           await createUserProfile(userCredential.user.uid, {
             email: email,
@@ -39,13 +38,13 @@ const Login = ({ onClose }) => {
 
         alert('Account created successfully!')
       } else {
-        // Sign in existing user
+
         const userCredential = await signInWithEmailAndPassword(auth, email, password)
         console.log('Signed in:', userCredential.user)
         alert('Signed in successfully!')
       }
 
-      // Clear form and close modal
+
       setEmail('')
       setPassword('')
       setUsername('')
@@ -71,7 +70,6 @@ const Login = ({ onClose }) => {
       case 'auth/invalid-email':
         return 'Invalid email address'
       default:
-        // If it's a custom error message, return it as is
         if (typeof errorCode === 'string' && errorCode.includes('Profile creation failed')) {
           return errorCode
         }
@@ -101,7 +99,6 @@ const Login = ({ onClose }) => {
         }, '×')
       ),
 
-      // Show error message if any
       error && React.createElement('div', {
         className: 'error-message',
         style: {
@@ -118,7 +115,7 @@ const Login = ({ onClose }) => {
         className: 'login-form',
         onSubmit: handleSubmit
       },
-        // Username field only for account creation
+
         showCreateAccount && React.createElement('div', { className: 'form-group' },
           React.createElement('label', { className: 'form-label' }, 'Username'),
           React.createElement('input', {

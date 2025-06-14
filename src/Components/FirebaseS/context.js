@@ -16,18 +16,17 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      console.log('Auth state changed:', user ? user.uid : 'no user') // Debug log
+      console.log('Auth state changed:', user ? user.uid : 'no user')
       setCurrentUser(user)
       
       if (user) {
-        // Get user profile data from Firestore
         try {
-          console.log('Fetching profile for user:', user.uid) // Debug log
+          console.log('Fetching profile for user:', user.uid) 
           const profile = await getUserProfile(user.uid)
-          console.log('Profile loaded:', profile) // Debug log
+          console.log('Profile loaded:', profile)
           setUserProfile(profile)
           
-          // Update last active time
+
           await updateLastActive(user.uid)
         } catch (error) {
           console.error('Error loading user profile:', error)
@@ -56,9 +55,9 @@ export function AuthProvider({ children }) {
   const refreshUserProfile = async () => {
     if (currentUser) {
       try {
-        console.log('Refreshing profile for:', currentUser.uid) // Debug log
+        console.log('Refreshing profile for:', currentUser.uid) 
         const profile = await getUserProfile(currentUser.uid)
-        console.log('Profile refreshed:', profile) // Debug log
+        console.log('Profile refreshed:', profile)
         setUserProfile(profile)
       } catch (error) {
         console.error('Error refreshing user profile:', error)
@@ -71,10 +70,10 @@ export function AuthProvider({ children }) {
     userProfile,
     refreshUserProfile,
     logout,
-    loading // Add loading to the context value
+    loading 
   }
 
   return React.createElement(AuthContext.Provider, { value },
-    children // Remove the !loading condition - let components handle loading states
+    children 
   )
 }

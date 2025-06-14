@@ -119,7 +119,7 @@ const KnockoutArchive = ({ onBackToWelcome }) => {
     const [hintsUsed, setHintsUsed] = useState(0)
     const [showHint, setShowHint] = useState(false)
 
-    // Sort archive items by date (latest first) and add archive numbers
+   
     const sortedArchiveData = gameData
         .map((data, index) => ({
             ...data,
@@ -128,13 +128,13 @@ const KnockoutArchive = ({ onBackToWelcome }) => {
         }))
         .sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate))
 
-    // Load saved progress from memory
+ 
    useEffect(() => {
     const savedProgress = JSON.parse(localStorage.getItem('knockoutArchiveProgress') || '{}')
     setArchiveProgress(savedProgress)
 }, [])
 
-    // Save progress to memory
+
 const saveProgress = (archiveNumber, correct, attempts) => {
     const completionData = {
         correct,
@@ -312,7 +312,7 @@ const handleRandomFight = () => {
 if (showArchive) {
     return React.createElement('div', { className: 'levels-challenge' },
         React.createElement('div', { className: 'levels-header' },
-            React.createElement('h1', { className: 'levels-title' }, '📚 Knockout Archive'),
+            React.createElement('h1', { className: 'levels-title' }, '📚 Daily Knockout Archive'),
             React.createElement('p', { className: 'levels-subtitle' },
                 'Browse through our collection of legendary knockouts. Each entry features a classic finish for you to identify!'
             ),
@@ -321,7 +321,7 @@ if (showArchive) {
                 onClick: onBackToWelcome
             }, '← Back to Menu')
         ),
-        // Add random fight button here
+
         React.createElement('div', { className: 'random-fight-container' },
             React.createElement('button', {
                 className: 'random-fight-button',
@@ -370,7 +370,7 @@ if (showArchive) {
     )
 }
 
-    // Question view
+
     return React.createElement('div', { className: 'level-question' },
         React.createElement('div', { className: 'level-question-header' },
             React.createElement('div', { className: 'question-info' },
@@ -409,13 +409,13 @@ if (showArchive) {
                     className: 'hint-button'
                 }, `💡 Hint (${hintsUsed}/2)`),
 
-                // Display all used hints cumulatively
+               
                 hintsUsed > 0 && React.createElement('div', { className: 'hints-container' },
-                    // First hint
+              
                     React.createElement('div', { className: 'hint-display hint-1' },
                         React.createElement('p', null, `${currentData.hint1}`)
                     ),
-                    // Second hint (only if used)
+                  
                     hintsUsed > 1 && React.createElement('div', { className: 'hint-display hint-2' },
                         React.createElement('p', null, `${currentData.hint2}`)
                     )

@@ -170,7 +170,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
 
                 return fighterName.includes(searchTerm) ||
                     nameParts.some(part => part.startsWith(searchTerm))
-            }).slice(0, vissbleS)//drop down amount
+            }).slice(0, vissbleS)   //drop down amount
             setSuggestions(filtered)
             setShowSuggestions(true)
         } else {
@@ -221,18 +221,18 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
     }
 
     const getMaxPossiblePoints = () => {
-    let maxPointsPerQuestion = 0
-    
-    if (difficulty === 'easy') {
-        maxPointsPerQuestion = 4
-    } else if (difficulty === 'medium') {
-        maxPointsPerQuestion = 3
-    } else {
-        maxPointsPerQuestion = 5
+        let maxPointsPerQuestion = 0
+
+        if (difficulty === 'easy') {
+            maxPointsPerQuestion = 4
+        } else if (difficulty === 'medium') {
+            maxPointsPerQuestion = 3
+        } else {
+            maxPointsPerQuestion = 5
+        }
+
+        return gameData.length * maxPointsPerQuestion
     }
-    
-    return gameData.length * maxPointsPerQuestion
-}
 
 
     const checkAnswer = () => {
@@ -273,7 +273,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
                 points = Math.max(1, 4 - attempts)
             } else if (difficulty === 'medium') {
                 points = 3 - attempts
-            } else { 
+            } else {
                 points = 5
             }
             setScore(score + points)
@@ -288,10 +288,17 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
                 setShowCorrectVideo(true)
                 setIsCorrect(false)
             } else {
-                // Only show hints if available for this difficulty and we haven't exceeded hint count
                 if (config.hintsAvailable > 0 && newAttempts <= config.hintsAvailable) {
-                    const hint = newAttempts === 1 ? currentData.hint1 : currentData.hint2
-                    setFeedback(`❌ Incorrect! Hint: ${hint}`)
+                    let hintText = '❌ Incorrect! '
+
+                    if (newAttempts >= 1) {
+                        hintText += `Hint 1: ${currentData.hint1}`
+                    }
+                    if (newAttempts >= 2) {
+                        hintText += `\nHint 2: ${currentData.hint2}`
+                    }
+
+                    setFeedback(hintText)
                     setShowHint(true)
                 } else {
                     setFeedback(`❌ Incorrect! Keep trying!`)

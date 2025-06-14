@@ -55,11 +55,10 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
       player => player.id === currentUser.uid
     )
 
-    return currentUserIndex !== -1 ? currentUserIndex + 1 : null
+    return currentUserIndex !== -1 ? currentUserIndex + 1 : 'Casual'
   }
 
   return React.createElement('div', { className: 'welcome-screen' },
-    // Login/User section at the top right
     React.createElement('div', { className: 'welcome-header' },
       currentUser
         ? React.createElement('div', { className: 'user-info' },
@@ -92,7 +91,7 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
         }, 'Login')
     ),
 
-    // Main content below
+
     React.createElement('div', { className: 'welcome-content' },
       React.createElement('div', { className: 'hero-section' },
         React.createElement('h1', { className: 'game-title' },
@@ -116,24 +115,24 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
       React.createElement('div', { className: 'game-modes' },
         React.createElement('div', { className: 'mode-card daily-card' },
           React.createElement('div', { className: 'card-header' },
-            React.createElement('div', { className: 'mode-icon' }, '🎮'),
-            React.createElement('h3', { className: 'mode-title' }, 'Knockout Archive'),
+            React.createElement('div', { className: 'mode-icon' }, '📆'),
+            React.createElement('h3', { className: 'mode-title' }, 'Daily Knockout Archive'),
 
           ),
           React.createElement('p', { className: 'mode-description' },
-            'Progress through levels by completing challenges. Each level gets more difficult, but the rewards are greater!'
+            "Each day brings a new challenger. Answer a range of questions, test your knowledge, and try as many times as you like — it's completely free."
           ),
           React.createElement('button', {
             className: 'mode-button daily-button',
             onClick: onStartDaily
           },
-            React.createElement('span', { className: 'button-text' }, 'START LEVELS'),
-            React.createElement('span', { className: 'button-arrow' }, '→')
+            React.createElement('span', { className: 'button-text' }, 'View Menu'),
+            React.createElement('span', { className: 'button-arrow' }, ' →')
           )
         ),
         React.createElement('div', { className: 'mode-card quiz-card' },
           React.createElement('div', { className: 'card-header' },
-            React.createElement('div', { className: 'mode-icon' }, '🎯'),
+            React.createElement('div', { className: 'mode-icon' }, '📝'),
             React.createElement('h3', { className: 'mode-title' }, 'Quiz Mode'),
           ),
           React.createElement('p', { className: 'mode-description' },
@@ -144,12 +143,12 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
             onClick: onStartGame
           },
             React.createElement('span', { className: 'button-text' }, 'START QUIZ MODE'),
-            React.createElement('span', { className: 'button-arrow' }, '→')
+            React.createElement('span', { className: 'button-arrow' }, ' →')
           )
         )
       ),
       React.createElement('div', { className: 'leaderboard' },
-        React.createElement('h3', { className: 'leaderboard-title' }, 'Leaderboard '),
+        React.createElement('h3', { className: 'leaderboard-title' }, 'Leaderboard'),
         loadingLeaderboard
           ? React.createElement('p', { className: 'loading-text' }, 'Loading...')
           : leaderboardData.length > 0
@@ -177,9 +176,22 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
               )
             )
             : React.createElement('p', { className: 'no-data-text' }, 'No players yet. Be the first!')
+      ),
+
+
+      React.createElement('div', { className: 'simple-footer' },
+        React.createElement('p', { className: 'footer-text' },
+          "This is an independent project. I'll update it as often as I can — hope you all enjoy!",
+          React.createElement('br'),
+          React.createElement('br'),
+          '©2025 Guess The Knockout',
+
+        )
       )
     )
   )
+
+
 }
 
 export default WelcomeScreen

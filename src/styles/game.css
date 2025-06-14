@@ -17,12 +17,13 @@
 }
 
 .question-info h2 {
+  
   font-size: 1.8rem;
   margin-bottom: 5px;
 }
 
 .score {
-  color: #ffd93d;
+  color: #e5e5e5;;
   font-weight: bold;
   font-size: 1.1rem;
 }
@@ -88,6 +89,7 @@
   align-items: center;
   margin-bottom: 20px;
   font-size: 1.1rem;
+  color: #e5e5e5;
 }
 
 .hint-indicator {
@@ -226,6 +228,7 @@
   font-size: 1.1rem;
   font-weight: bold;
   text-align: center;
+  white-space: pre-line;
 }
 
 .feedback.correct {
