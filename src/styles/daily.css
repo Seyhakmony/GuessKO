@@ -343,7 +343,7 @@
   }
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .levels-grid {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
