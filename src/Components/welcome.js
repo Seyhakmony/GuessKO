@@ -132,7 +132,7 @@ const handleStartGame = () => {
             className: 'mode-button daily-button',
             onClick: handleArchive
           },
-            React.createElement('span', { className: 'button-text' }, 'View Menu'),
+            React.createElement('span', { className: 'button-text' }, 'View Archive'),
             React.createElement('span', { className: 'button-arrow' }, ' →')
           )
         ),
