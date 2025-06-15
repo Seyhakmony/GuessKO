@@ -90,9 +90,15 @@ const gameData = [
     }
 ]
 
+const getQs = (questions, count) => {
+    const shuffled = [...questions].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, Math.min(count, questions.length));
+};
+
 
 const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userProfile }) => {
-    const [currentQuestion, setCurrentQuestion] = useState(0)
+    const [selectedQuestions] = useState(() => getQs(gameData, 10));
+    const [currentQuestion, setCurrentQuestion] = useState(0);
     const [attempts, setAttempts] = useState(0)
     const [userAnswer, setUserAnswer] = useState('')
     const [feedback, setFeedback] = useState('')
@@ -105,7 +111,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
     const [showSuggestions, setShowSuggestions] = useState(false)
 
     const [usedAnswers, setUsedAnswers] = useState([])
-    const currentData = gameData[currentQuestion]
+    const currentData = selectedQuestions[currentQuestion];
 
     const [gaveUp, setGaveUp] = useState(false)
     const [vissbleS, setVissbleS] = useState(15)
@@ -143,6 +149,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
                 return { maxAttempts: 3, hintsAvailable: 2 }
         }
     }
+
 
     const config = getDifficultyConfig()
 
@@ -231,7 +238,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
             maxPointsPerQuestion = 5
         }
 
-        return gameData.length * maxPointsPerQuestion
+        return selectedQuestions.length * maxPointsPerQuestion;
     }
 
 
@@ -309,7 +316,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
 
 
     const nextQuestion = async () => {
-        if (currentQuestion < gameData.length - 1) {
+        if (currentQuestion < selectedQuestions.length - 1) {
             setCurrentQuestion(currentQuestion + 1)
             resetQuestion()
         } else {
@@ -352,7 +359,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
                 currentUser && userProfile && totalPointsAfterGame !== null &&
                 React.createElement('p', { className: 'total-points' }, `Total Points: ${totalPointsAfterGame}`),
                 React.createElement('p', { className: 'score-breakdown' },
-                    `Out of ${gameData.length} questions with a maximum of ${getMaxPossiblePoints()} points`,
+                    `Out of ${selectedQuestions.length} questions with a maximum of ${getMaxPossiblePoints()} points`,
                 ),
                 React.createElement('div', { className: 'complete-buttons' },
                     React.createElement('button', {
@@ -371,7 +378,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
     return React.createElement('div', { className: 'game-screen' },
         React.createElement('div', { className: 'game-header' },
             React.createElement('div', { className: 'question-info' },
-                React.createElement('h2', null, `Question ${currentQuestion + 1} of ${gameData.length}`),
+                React.createElement('h2', null, `Question ${currentQuestion + 1} of ${selectedQuestions.length}`),
                 React.createElement('p', { className: 'score' }, `Score: ${score} points`)
             ),
             React.createElement('button', {
@@ -463,7 +470,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
                 (isCorrect || gaveUp || attempts >= config.maxAttempts) && React.createElement('button', {
                     className: 'next-button',
                     onClick: nextQuestion
-                }, currentQuestion < gameData.length - 1 ? 'NEXT QUESTION' : 'FINISH GAME')
+                }, currentQuestion < selectedQuestions.length - 1 ? 'NEXT QUESTION' : 'FINISH GAME')
             )
         )
     )

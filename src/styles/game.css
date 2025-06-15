@@ -126,7 +126,7 @@
 
 .answer-field:focus {
   outline: none;
-  border-color: #ffd93d;
+  border-color: rgba(15, 20, 35, 0.8);
   box-shadow: 0 0 10px rgba(255, 217, 61, 0.3);
 }
 
