@@ -42,62 +42,56 @@ const GameContent = () => {
     navigate('/')
   }
 
-  return React.createElement(Routes, null,
-    React.createElement(Route, {
-      path: "/",
-      element: React.createElement(Welcome, {
-        onShowLogin: showLoginModal,
-        onShowDifficultyMenu: showDifficultyMenu,
-        currentUser: currentUser,
-        onLogout: handleLogout,
-        setUserProfile: setUserProfile
-      })
-    }),
+  return React.createElement(React.Fragment, null,
+    React.createElement(Routes, null,
+      React.createElement(Route, {
+        path: "/",
+        element: React.createElement(Welcome, {
+          onShowLogin: showLoginModal,
+          onShowDifficultyMenu: showDifficultyMenu,
+          currentUser: currentUser,
+          onLogout: handleLogout,
+          setUserProfile: setUserProfile
+        })
+      }),
 
-    React.createElement(Route, {
-      path: "/difficulty",
-      element: React.createElement(DifficultyMenu, {
-        onSelectDifficulty: selectDifficulty,
-        onBack: () => navigate('/')
-      })
-    }),
+      React.createElement(Route, {
+        path: "/difficulty",
+        element: React.createElement(DifficultyMenu, {
+          onSelectDifficulty: selectDifficulty,
+          onBack: () => navigate('/')
+        })
+      }),
 
-    React.createElement(Route, {
-      path: "/archive",
-      element: React.createElement(KnockoutArchive, {
-        onBackToWelcome: backToWelcome
-      })
-    }),
+      React.createElement(Route, {
+        path: "/archive",
+        element: React.createElement(KnockoutArchive, {
+          onBackToWelcome: backToWelcome
+        })
+      }),
 
-    React.createElement(Route, {
-      path: "/archive/:archiveId",
-      element: React.createElement(KnockoutArchive, {
-        onBackToWelcome: backToWelcome
-      })
-    }),
+      React.createElement(Route, {
+        path: "/archive/:archiveId",
+        element: React.createElement(KnockoutArchive, {
+          onBackToWelcome: backToWelcome
+        })
+      }),
 
-    React.createElement(Route, {
-      path: "/game",
-      element: React.createElement(StartingGame, {
-        onBackToWelcome: backToWelcome,
-        difficulty: difficulty,
-        currentUser: currentUser,
-        userProfile: userProfile
-      })
-    }),
+      React.createElement(Route, {
+        path: "/game",
+        element: React.createElement(StartingGame, {
+          onBackToWelcome: backToWelcome,
+          difficulty: difficulty,
+          currentUser: currentUser,
+          userProfile: userProfile
+        })
+      }),
 
-    React.createElement(Route, {
-      path: "/difficulty",
-      element: React.createElement(DifficultyMenu, {
-        onSelectDifficulty: selectDifficulty,
-        onBack: () => navigate('/')
+      React.createElement(Route, {
+        path: "*",
+        element: React.createElement(Navigate, { to: "/", replace: true })
       })
-    }),
-
-    React.createElement(Route, {
-      path: "*",
-      element: React.createElement(Navigate, { to: "/menu", replace: true })
-    }),
+    ),
 
     showLogin && React.createElement(Login, {
       onClose: hideLoginModal
