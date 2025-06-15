@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import fighters from './MMAFighters.js';
 import '../styles/game.css';
+import { useNavigate } from 'react-router-dom';
 import { addPointsToUser } from './FirebaseS/data.js'
+
 
 const gameData = [
     {
@@ -97,6 +99,7 @@ const getQs = (questions, count) => {
 
 
 const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userProfile }) => {
+    const navigate = useNavigate();
     const [selectedQuestions] = useState(() => getQs(gameData, 10));
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [attempts, setAttempts] = useState(0)
@@ -368,7 +371,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
                     }, 'PLAY AGAIN'),
                     React.createElement('button', {
                         className: 'back-button',
-                        onClick: onBackToWelcome
+                        onClick: () => navigate('/')
                     }, 'BACK TO MENU')
                 )
             )
@@ -383,7 +386,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
             ),
             React.createElement('button', {
                 className: 'back-button-small',
-                onClick: onBackToWelcome
+               onClick: () => navigate('/')
             }, '← Back to Menu')
         ),
         React.createElement('div', { className: 'question-container' },

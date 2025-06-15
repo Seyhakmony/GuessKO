@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { getLeaderboard } from './FirebaseS/data.js'
 
-
-
-const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, onLogout, userProfile, setUserProfile }) => {
+const WelcomeScreen = ({ onShowLogin, currentUser, onLogout, userProfile, setUserProfile, onShowDifficultyMenu }) => {
   const [leaderboardData, setLeaderboardData] = useState([])
   const [loadingLeaderboard, setLoadingLeaderboard] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const loadLeaderboard = async () => {
       try {
         const data = await getLeaderboard(10)
         setLeaderboardData(data)
-
 
         if (currentUser && data.length > 0) {
           const currentUserInLeaderboard = data.find(
@@ -32,6 +31,16 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
     loadLeaderboard()
   }, [currentUser, setUserProfile])
 
+const handleStartGame = () => {
+  onShowDifficultyMenu()
+}
+
+  const handleArchive = () => {
+    navigate('/archive')
+  }
+
+
+  
   const getCurrentUserPoints = () => {
     if (!currentUser || !leaderboardData.length) return 0
 
@@ -46,7 +55,6 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
 
     return currentUserInLeaderboard?.totalPoints || 0
   }
-
 
   const getCurrentUserRank = () => {
     if (!currentUser || !leaderboardData.length) return null
@@ -91,7 +99,6 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
         }, 'Login')
     ),
 
-
     React.createElement('div', { className: 'welcome-content' },
       React.createElement('div', { className: 'hero-section' },
         React.createElement('h1', { className: 'game-title' },
@@ -117,14 +124,13 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
           React.createElement('div', { className: 'card-header' },
             React.createElement('div', { className: 'mode-icon' }, '📆'),
             React.createElement('h3', { className: 'mode-title' }, 'Daily Knockout Archive'),
-
           ),
           React.createElement('p', { className: 'mode-description' },
             "Each day brings a new challenger. Answer a range of questions, test your knowledge, and try as many times as you like — it's completely free."
           ),
           React.createElement('button', {
             className: 'mode-button daily-button',
-            onClick: onStartDaily
+            onClick: handleArchive
           },
             React.createElement('span', { className: 'button-text' }, 'View Menu'),
             React.createElement('span', { className: 'button-arrow' }, ' →')
@@ -140,7 +146,7 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
           ),
           React.createElement('button', {
             className: 'mode-button quiz-button',
-            onClick: onStartGame
+            onClick: handleStartGame
           },
             React.createElement('span', { className: 'button-text' }, 'START QUIZ MODE'),
             React.createElement('span', { className: 'button-arrow' }, ' →')
@@ -178,20 +184,16 @@ const WelcomeScreen = ({ onStartGame, onStartDaily, onShowLogin, currentUser, on
             : React.createElement('p', { className: 'no-data-text' }, 'No players yet. Be the first!')
       ),
 
-
       React.createElement('div', { className: 'simple-footer' },
         React.createElement('p', { className: 'footer-text' },
           "This is an independent project. I'll update it as often as I can — hope you all enjoy!",
           React.createElement('br'),
           React.createElement('br'),
           '©2025 Guess The Knockout',
-
         )
       )
     )
   )
-
-
 }
 
 export default WelcomeScreen

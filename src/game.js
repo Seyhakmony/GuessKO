@@ -1,24 +1,25 @@
 import React, { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Welcome from './Components/welcome.js'
 import StartingGame from './Components/startGame.js'
 import DifficultyMenu from './Components/DifficultyMenu.js'
-import DailyChallenge from './Components/Daily.js'
+import KnockoutArchive from './Components/Daily.js'
 import Login from './Components/login.js'
+import { useNavigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './Components/FirebaseS/context.js'
 
 const GameContent = () => {
-  const [gameStarted, setGameStarted] = useState(false)
-  const [showDifficulty, setShowDifficulty] = useState(false)
-  const [showDaily, setShowDaily] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [difficulty, setDifficulty] = useState('medium')
-  const [userProfile, setUserProfile] = useState(null) 
-  
-  const { currentUser, logout } = useAuth()
+  const [userProfile, setUserProfile] = useState(null)
 
-  const showDifficultyMenu = () => setShowDifficulty(true)
-  const hideDifficultyMenu = () => setShowDifficulty(false)
-  const showDailyChallenge = () => setShowDaily(true)
+  const { currentUser, logout } = useAuth()
+  const navigate = useNavigate()
+
+  const showDifficultyMenu = () => {
+    navigate('/difficulty')
+  }
+
   const showLoginModal = () => setShowLogin(true)
   const hideLoginModal = () => setShowLogin(false)
 
@@ -34,40 +35,70 @@ const GameContent = () => {
 
   const selectDifficulty = (selectedDifficulty) => {
     setDifficulty(selectedDifficulty)
-    setShowDifficulty(false)
-    setGameStarted(true)
+    navigate('/game')
   }
 
   const backToWelcome = () => {
-    setGameStarted(false)
-    setShowDifficulty(false)
-    setShowDaily(false)
+    navigate('/')
   }
 
-  return React.createElement('div', { className: 'App' },
-    !gameStarted && !showDaily
-      ? React.createElement(Welcome, {
-           onStartGame: showDifficultyMenu,
-          onStartDaily: showDailyChallenge,
-          onShowLogin: showLoginModal,
-          currentUser: currentUser,
-          onLogout: handleLogout,
-          setUserProfile: setUserProfile
-        })
-      : showDaily
-        ? React.createElement(DailyChallenge, {
-            onBackToWelcome: backToWelcome
-          })
-        : React.createElement(StartingGame, {
-            onBackToWelcome: backToWelcome,
-            difficulty: difficulty,
-            currentUser: currentUser,
-            userProfile: userProfile
-          }),
-    showDifficulty && React.createElement(DifficultyMenu, {
-      onSelectDifficulty: selectDifficulty,
-      onBack: hideDifficultyMenu
+  return React.createElement(Routes, null,
+    React.createElement(Route, {
+      path: "/",
+      element: React.createElement(Welcome, {
+        onShowLogin: showLoginModal,
+        onShowDifficultyMenu: showDifficultyMenu,
+        currentUser: currentUser,
+        onLogout: handleLogout,
+        setUserProfile: setUserProfile
+      })
     }),
+
+    React.createElement(Route, {
+      path: "/difficulty",
+      element: React.createElement(DifficultyMenu, {
+        onSelectDifficulty: selectDifficulty,
+        onBack: () => navigate('/')
+      })
+    }),
+
+    React.createElement(Route, {
+      path: "/archive",
+      element: React.createElement(KnockoutArchive, {
+        onBackToWelcome: backToWelcome
+      })
+    }),
+
+    React.createElement(Route, {
+      path: "/archive/:archiveId",
+      element: React.createElement(KnockoutArchive, {
+        onBackToWelcome: backToWelcome
+      })
+    }),
+
+    React.createElement(Route, {
+      path: "/game",
+      element: React.createElement(StartingGame, {
+        onBackToWelcome: backToWelcome,
+        difficulty: difficulty,
+        currentUser: currentUser,
+        userProfile: userProfile
+      })
+    }),
+
+    React.createElement(Route, {
+      path: "/difficulty",
+      element: React.createElement(DifficultyMenu, {
+        onSelectDifficulty: selectDifficulty,
+        onBack: () => navigate('/')
+      })
+    }),
+
+    React.createElement(Route, {
+      path: "*",
+      element: React.createElement(Navigate, { to: "/menu", replace: true })
+    }),
+
     showLogin && React.createElement(Login, {
       onClose: hideLoginModal
     })
@@ -76,7 +107,9 @@ const GameContent = () => {
 
 const Game = () => {
   return React.createElement(AuthProvider, null,
-    React.createElement(GameContent)
+    React.createElement(Router, null,
+      React.createElement(GameContent)
+    )
   )
 }
 

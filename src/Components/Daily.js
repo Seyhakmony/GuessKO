@@ -1,101 +1,102 @@
 import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import fighters from './MMAFighters.js';
 import '../styles/game.css';
 import '../styles/daily.css';
 
 const gameData = [
     {
-        videoPath: './clips/BucklyW.mp4',
+        videoPath: '/clips/BucklyW.mp4',
         correctAnswer: 'Joaquin Buckley',
-        correctVideo: './correct/Buckly_vs.mp4',
+        correctVideo: '/correct/Buckly_vs.mp4',
         hint1: 'Explosive fighter',
         hint2: 'Known for viral knockout highlight',
         releaseDate: '2025-06-10'
     },
     {
-        videoPath: './clips/ConorW.mp4',
+        videoPath: '/clips/ConorW.mp4',
         correctAnswer: 'Conor Mcgregor',
-        correcVideo: './correct/Conor_vs_Aldo.mp4',
+        correctVideo: '/correct/Conor_vs_Aldo.mp4',
         hint1: 'Southpaw striker',
         hint2: 'Made boxing debut in 2017',
         releaseDate: '2025-06-09'
     },
     {
-        videoPath: './clips/IliaW.mp4',
+        videoPath: '/clips/IliaW.mp4',
         correctAnswer: 'Ilia Topuria',
-        correctVideo: './correct/Ilia_vs_Alex.mp4',
+        correctVideo: '/correct/Ilia_vs_Alex.mp4',
         hint1: 'European fighter',
         hint2: 'Undefeated record holder',
         releaseDate: '2025-06-08'
     },
     {
-        videoPath: './clips/Izzy_AlexW.mp4',
+        videoPath: '/clips/Izzy_AlexW.mp4',
         correctAnswer: 'Israel Adesanya',
-        correctVideo: './correct/Alex_vs_Izzy2.mp4',
+        correctVideo: '/correct/Alex_vs_Izzy2.mp4',
         hint1: 'Tall striker',
         hint2: 'Has kickboxing background',
         releaseDate: '2025-06-07'
     },
     {
-        videoPath: './clips/IzzyW.mp4',
+        videoPath: '/clips/IzzyW.mp4',
         correctAnswer: 'Israel Adesanya',
-        correctVideo: './correct/Izzy_vs_Rob.mp4',
+        correctVideo: '/correct/Izzy_vs_Rob.mp4',
         hint1: 'Creative fighter',
         hint2: 'Trained in New Zealand',
         releaseDate: '2025-06-06'
     },
     {
-        videoPath: './clips/KaiFranceW.mp4',
+        videoPath: '/clips/KaiFranceW.mp4',
         correctAnswer: 'Kai Kara-france',
-        correctVideo: './correct/France_vs_Cody.mp4',
+        correctVideo: '/correct/France_vs_Cody.mp4',
         hint1: 'Smaller weight class',
         hint2: 'Pacific region fighter',
         releaseDate: '2025-06-05'
     },
     {
-        videoPath: './clips/LeonW.mp4',
+        videoPath: '/clips/LeonW.mp4',
         correctAnswer: 'Leon Edwards',
-        correctVideo: './correct/Leon_vs_Usman.mp4',
+        correctVideo: '/correct/Leon_vs_Usman.mp4',
         hint1: 'British fighter',
         hint2: 'Late-round finisher',
         releaseDate: '2025-06-04'
     },
     {
-        videoPath: './clips/MasvidalW.mp4',
+        videoPath: '/clips/MasvidalW.mp4',
         correctAnswer: 'Jorge Masvidal',
-        correctVideo: './correct/Masvidal_vs_Askren.mp4',
+        correctVideo: '/correct/Masvidal_vs_Askren.mp4',
         hint1: 'Veteran fighter',
         hint2: 'Set speed record',
         releaseDate: '2025-06-03'
     },
     {
-        videoPath: './clips/MaxHollowayW.mp4',
+        videoPath: '/clips/MaxHollowayW.mp4',
         correctAnswer: 'Max Holloway',
-        correctVideo: './correct/Max_vs_Justin.mp4',
+        correctVideo: '/correct/Max_vs_Justin.mp4',
         hint1: 'High-volume striker',
         hint2: 'Island-born fighter',
         releaseDate: '2025-06-02'
     },
     {
-        videoPath: './clips/OmalleyW.mp4',
+        videoPath: '/clips/OmalleyW.mp4',
         correctAnswer: "Sean O'malley",
-        correctVideo: './correct/Omalley_vs_White.mp4',
+        correctVideo: '/correct/Omalley_vs_White.mp4',
         hint1: 'Colorful personality',
         hint2: 'Western US fighter',
         releaseDate: '2025-06-01'
     },
     {
-        videoPath: './clips/SilvaW.mp4',
+        videoPath: '/clips/SilvaW.mp4',
         correctAnswer: 'Anderson Silva',
-        correctVideo: './correct/Silva_vs_Griffin.mp4',
+        correctVideo: '/correct/Silva_vs_Griffin.mp4',
         hint1: 'Brazilian legend',
         hint2: 'Long title reign',
         releaseDate: '2025-05-31'
     },
     {
-        videoPath: './clips/VolkanW.mp4',
+        videoPath: '/clips/VolkanW.mp4',
         correctAnswer: 'Volkan Oezdemir',
-        correctVideo: './correct/Oezdemir_vs_Walker.mp4',
+        correctVideo: '/correct/Oezdemir_vs_Walker.mp4',
         hint1: 'European striker',
         hint2: 'Light heavyweight division',
         releaseDate: '2025-05-30'
@@ -103,6 +104,10 @@ const gameData = [
 ]
 
 const KnockoutArchive = ({ onBackToWelcome }) => {
+    const { archiveId } = useParams()
+    const navigate = useNavigate()
+    const location = useLocation()
+    
     const [selectedLevel, setSelectedLevel] = useState(null)
     const [showArchive, setShowArchive] = useState(true)
     const [currentData, setCurrentData] = useState(null)
@@ -135,6 +140,26 @@ const KnockoutArchive = ({ onBackToWelcome }) => {
 }, [])
 
 
+useEffect(() => {
+    if (archiveId) {
+        const archiveNumber = parseInt(archiveId)
+        const archiveItem = sortedArchiveData.find(item => item.archiveNumber === archiveNumber)
+        
+        if (archiveItem) {
+            setSelectedLevel(archiveNumber)
+            setCurrentData(gameData[archiveItem.originalIndex])
+            setShowArchive(false)
+            resetQuestion()
+        } else {
+            navigate('/archive', { replace: true })
+        }
+    } else {
+        setShowArchive(true)
+        setSelectedLevel(null)
+        setCurrentData(null)
+    }
+}, [archiveId, navigate])
+
 const saveProgress = (archiveNumber, correct, attempts) => {
     const completionData = {
         correct,
@@ -160,11 +185,8 @@ const saveProgress = (archiveNumber, correct, attempts) => {
 }
 
     const handleArchiveSelect = (archiveItem) => {
-        setSelectedLevel(archiveItem.archiveNumber)
-        setCurrentData(gameData[archiveItem.originalIndex])
-        setShowArchive(false)
-        resetQuestion()
-    }
+    navigate(`/archive/${archiveItem.archiveNumber}`)
+}
 
     const resetQuestion = () => {
         setAttempts(0)
@@ -254,7 +276,7 @@ const saveProgress = (archiveNumber, correct, attempts) => {
 const handleRandomFight = () => {
     const randomIndex = Math.floor(Math.random() * sortedArchiveData.length)
     const randomArchiveItem = sortedArchiveData[randomIndex]
-    handleArchiveSelect(randomArchiveItem)
+    navigate(`/archive/${randomArchiveItem.archiveNumber}`)
 }
 
     const checkAnswer = () => {
@@ -303,10 +325,11 @@ const handleRandomFight = () => {
     }
 
     const backToArchive = () => {
-        setShowArchive(true)
-        setSelectedLevel(null)
-        setCurrentData(null)
-        resetQuestion()
+        navigate('/archive')
+    }
+
+    const backToMenu = () => {
+        navigate('/')
     }
 
 if (showArchive) {
@@ -318,7 +341,7 @@ if (showArchive) {
             ),
             React.createElement('button', {
                 className: 'back-button-small',
-                onClick: onBackToWelcome
+                onClick: backToMenu
             }, '← Back to Menu')
         ),
 
