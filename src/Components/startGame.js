@@ -7,6 +7,76 @@ import { addPointsToUser } from './FirebaseS/data.js'
 
 const gameData = [
     {
+        videoPath: './clips/LyotoW_vs_Couture.mp4',
+        correctAnswer: 'Lyoto Machida',
+        correctVideo: './correct/Lyoto_vs_Couture.mp4',
+        hint1: 'Karate-based fighter',
+        hint2: 'Known as "The Dragon"'
+    },
+    {
+        videoPath: './clips/VeraW_vs_Cruz.mp4',
+        correctAnswer: 'Marlon Vera',
+        correctVideo: './correct/Vera_vs_Cruz.mp4',
+        hint1: 'Ecuadorian striker',
+        hint2: 'Leg kick specialist'
+    },
+    {
+        videoPath: './clips/ProchazkaW_vs_Oezdemir.mp4',
+        correctAnswer: 'Jiri Prochazka',
+        correctVideo: './correct/Prochazka_vs_Oezdemir.mp4',
+        hint1: 'Czech samurai',
+        hint2: 'Unpredictable fighting style'
+    },
+    {
+        videoPath: './clips/WeiliW_vs_Joanna.mp4',
+        correctAnswer: 'Zhang Weili',
+        correctVideo: './correct/Weili_vs_Joanna.mp4',
+        hint1: 'Chinese powerhouse',
+        hint2: 'First from her country to win title'
+    },
+    {
+        videoPath: './clips/ErcegW_vs_Schnell.mp4',
+        correctAnswer: 'Steve Erceg',
+        correctVideo: './correct/Erceg_vs_Schnell.mp4',
+        hint1: 'Australian prospect',
+        hint2: 'Flyweight contender'
+    },
+    {
+        videoPath: './clips/EmmetW_vs_Mitchell.mp4',
+        correctAnswer: 'Josh Emmett',
+        correctVideo: './correct/Emmet_vs_Mitchell.mp4',
+        hint1: 'Power puncher',
+        hint2: 'Team Alpha Male veteran'
+    },
+    {
+        videoPath: './clips/yadongW_vs_perez.mp4',
+        correctAnswer: 'Song Yadong',
+        correctVideo: './correct/yadong_vs_perez.mp4',
+        hint1: 'Chinese bantamweight',
+        hint2: 'Precise striker'
+    },
+    {
+        videoPath: './clips/WoodlyW_vs_joshC.mp4',
+        correctAnswer: 'Tyron Woodley',
+        correctVideo: './correct/Woodly_vs_joshC.mp4',
+        hint1: 'Wrestling background',
+        hint2: 'Former welterweight champion'
+    },
+    {
+        videoPath: './clips/ChandlerW_vs_Ferguson.mp4',
+        correctAnswer: 'Michael Chandler',
+        correctVideo: './correct/Chandler_vs_Ferguson.mp4',
+        hint1: 'Former Bellator champion',
+        hint2: 'Explosive lightweight'
+    },
+    {
+        videoPath: './clips/Shi_MingW_vs_FengXiaocan.mp4',
+        correctAnswer: 'Ming Shi',
+        correctVideo: './correct/Shi_Ming_vs_FengXiaocan.mp4',
+        hint1: 'Chinese flyweight',
+        hint2: 'She is also a doctor in China'
+    },
+    {
         videoPath: './clips/BucklyW.mp4',
         correctAnswer: 'Joaquin Buckley',
         correctVideo: './correct/Buckly_vs.mp4',
@@ -386,7 +456,7 @@ const GameScreen = ({ onBackToWelcome, difficulty = 'medium', currentUser, userP
             ),
             React.createElement('button', {
                 className: 'back-button-small',
-               onClick: () => navigate('/')
+                onClick: () => navigate('/')
             }, '← Back to Menu')
         ),
         React.createElement('div', { className: 'question-container' },

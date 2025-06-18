@@ -6,6 +6,86 @@ import '../styles/daily.css';
 
 const gameData = [
     {
+        videoPath: '/clips/LyotoW_vs_Couture.mp4',
+        correctAnswer: 'Lyoto Machida',
+        correctVideo: '/correct/Lyoto_vs_Couture.mp4',
+        hint1: 'Karate-based fighter',
+        hint2: 'Known as "The Dragon"',
+        releaseDate: '2025-06-20'
+    },
+    {
+        videoPath: '/clips/VeraW_vs_Cruz.mp4',
+        correctAnswer: 'Marlon Vera',
+        correctVideo: '/correct/Vera_vs_Cruz.mp4',
+        hint1: 'Ecuadorian striker',
+        hint2: 'Leg kick specialist',
+        releaseDate: '2025-06-19'
+    },
+    {
+        videoPath: '/clips/ProchazkaW_vs_Oezdemir.mp4',
+        correctAnswer: 'Jiri Prochazka',
+        correctVideo: '/correct/Prochazka_vs_Oezdemir.mp4',
+        hint1: 'Czech samurai',
+        hint2: 'Unpredictable fighting style',
+        releaseDate: '2025-06-18'
+    },
+    {
+        videoPath: '/clips/WeiliW_vs_Joanna.mp4',
+        correctAnswer: 'Zhang Weili',
+        correctVideo: '/correct/Weili_vs_Joanna.mp4',
+        hint1: 'Chinese powerhouse',
+        hint2: 'First from her country to win title',
+        releaseDate: '2025-06-17'
+    },
+    {
+        videoPath: '/clips/ErcegW_vs_Schnell.mp4',
+        correctAnswer: 'Steve Erceg',
+        correctVideo: '/correct/Erceg_vs_Schnell.mp4',
+        hint1: 'Australian prospect',
+        hint2: 'Flyweight contender',
+        releaseDate: '2025-06-16'
+    },
+    {
+        videoPath: '/clips/EmmetW_vs_Mitchell.mp4',
+        correctAnswer: 'Josh Emmett',
+        correctVideo: '/correct/Emmet_vs_Mitchell.mp4',
+        hint1: 'Power puncher',
+        hint2: 'Team Alpha Male veteran',
+        releaseDate: '2025-06-15'
+    },
+    {
+        videoPath: '/clips/yadongW_vs_perez.mp4',
+        correctAnswer: 'Song Yadong',
+        correctVideo: '/correct/yadong_vs_perez.mp4',
+        hint1: 'Chinese bantamweight',
+        hint2: 'Precise striker',
+        releaseDate: '2025-06-14'
+    },
+    {
+        videoPath: '/clips/WoodlyW_vs_joshC.mp4',
+        correctAnswer: 'Tyron Woodley',
+        correctVideo: '/correct/Woodly_vs_joshC.mp4',
+        hint1: 'Wrestling background',
+        hint2: 'Former welterweight champion',
+        releaseDate: '2025-06-13'
+    },
+    {
+        videoPath: '/clips/ChandlerW_vs_Ferguson.mp4',
+        correctAnswer: 'Michael Chandler',
+        correctVideo: '/correct/Chandler_vs_Ferguson.mp4',
+        hint1: 'Former Bellator champion',
+        hint2: 'Explosive lightweight',
+        releaseDate: '2025-06-12'
+    },
+    {
+        videoPath: '/clips/Shi_MingW_vs_FengXiaocan.mp4',
+        correctAnswer: 'Ming Shi',
+        correctVideo: '/correct/Shi_Ming_vs_FengXiaocan.mp4',
+        hint1: 'Chinese flyweight',
+        hint2: 'She is also a doctor in China',
+        releaseDate: '2025-06-11'
+    },
+    {
         videoPath: '/clips/BucklyW.mp4',
         correctAnswer: 'Joaquin Buckley',
         correctVideo: '/correct/Buckly_vs.mp4',
@@ -107,7 +187,7 @@ const KnockoutArchive = ({ onBackToWelcome }) => {
     const { archiveId } = useParams()
     const navigate = useNavigate()
     const location = useLocation()
-    
+
     const [selectedLevel, setSelectedLevel] = useState(null)
     const [showArchive, setShowArchive] = useState(true)
     const [currentData, setCurrentData] = useState(null)
@@ -124,7 +204,7 @@ const KnockoutArchive = ({ onBackToWelcome }) => {
     const [hintsUsed, setHintsUsed] = useState(0)
     const [showHint, setShowHint] = useState(false)
 
-   
+
     const sortedArchiveData = gameData
         .map((data, index) => ({
             ...data,
@@ -133,60 +213,60 @@ const KnockoutArchive = ({ onBackToWelcome }) => {
         }))
         .sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate))
 
- 
-   useEffect(() => {
-    const savedProgress = JSON.parse(localStorage.getItem('knockoutArchiveProgress') || '{}')
-    setArchiveProgress(savedProgress)
-}, [])
+
+    useEffect(() => {
+        const savedProgress = JSON.parse(localStorage.getItem('knockoutArchiveProgress') || '{}')
+        setArchiveProgress(savedProgress)
+    }, [])
 
 
-useEffect(() => {
-    if (archiveId) {
-        const archiveNumber = parseInt(archiveId)
-        const archiveItem = sortedArchiveData.find(item => item.archiveNumber === archiveNumber)
-        
-        if (archiveItem) {
-            setSelectedLevel(archiveNumber)
-            setCurrentData(gameData[archiveItem.originalIndex])
-            setShowArchive(false)
-            resetQuestion()
+    useEffect(() => {
+        if (archiveId) {
+            const archiveNumber = parseInt(archiveId)
+            const archiveItem = sortedArchiveData.find(item => item.archiveNumber === archiveNumber)
+
+            if (archiveItem) {
+                setSelectedLevel(archiveNumber)
+                setCurrentData(gameData[archiveItem.originalIndex])
+                setShowArchive(false)
+                resetQuestion()
+            } else {
+                navigate('/archive', { replace: true })
+            }
         } else {
-            navigate('/archive', { replace: true })
+            setShowArchive(true)
+            setSelectedLevel(null)
+            setCurrentData(null)
         }
-    } else {
-        setShowArchive(true)
-        setSelectedLevel(null)
-        setCurrentData(null)
-    }
-}, [archiveId, navigate])
+    }, [archiveId, navigate])
 
-const saveProgress = (archiveNumber, correct, attempts) => {
-    const completionData = {
-        correct,
-        attempts,
-        completed: true,
-        completedAt: new Date().toISOString(),
-        hintsUsed: hintsUsed
-    }
-    
-    const newProgress = {
-        ...archiveProgress,
-        [archiveNumber]: completionData
-    }
-    
-    setArchiveProgress(newProgress)
-    localStorage.setItem('knockoutArchiveProgress', JSON.stringify(newProgress))
-}
+    const saveProgress = (archiveNumber, correct, attempts) => {
+        const completionData = {
+            correct,
+            attempts,
+            completed: true,
+            completedAt: new Date().toISOString(),
+            hintsUsed: hintsUsed
+        }
 
-   const formatDate = (dateString) => {
-    
-    const [year, month, day] = dateString.split('-');
-    return `${parseInt(month)}/${parseInt(day)}/${year}`;
-}
+        const newProgress = {
+            ...archiveProgress,
+            [archiveNumber]: completionData
+        }
+
+        setArchiveProgress(newProgress)
+        localStorage.setItem('knockoutArchiveProgress', JSON.stringify(newProgress))
+    }
+
+    const formatDate = (dateString) => {
+
+        const [year, month, day] = dateString.split('-');
+        return `${parseInt(month)}/${parseInt(day)}/${year}`;
+    }
 
     const handleArchiveSelect = (archiveItem) => {
-    navigate(`/archive/${archiveItem.archiveNumber}`)
-}
+        navigate(`/archive/${archiveItem.archiveNumber}`)
+    }
 
     const resetQuestion = () => {
         setAttempts(0)
@@ -273,11 +353,11 @@ const saveProgress = (archiveNumber, correct, attempts) => {
     }
 
 
-const handleRandomFight = () => {
-    const randomIndex = Math.floor(Math.random() * sortedArchiveData.length)
-    const randomArchiveItem = sortedArchiveData[randomIndex]
-    navigate(`/archive/${randomArchiveItem.archiveNumber}`)
-}
+    const handleRandomFight = () => {
+        const randomIndex = Math.floor(Math.random() * sortedArchiveData.length)
+        const randomArchiveItem = sortedArchiveData[randomIndex]
+        navigate(`/archive/${randomArchiveItem.archiveNumber}`)
+    }
 
     const checkAnswer = () => {
         if (!userAnswer.trim()) {
@@ -332,66 +412,66 @@ const handleRandomFight = () => {
         navigate('/')
     }
 
-if (showArchive) {
-    return React.createElement('div', { className: 'levels-challenge' },
-        React.createElement('div', { className: 'levels-header' },
-            React.createElement('h1', { className: 'levels-title' }, '📚 Daily Knockout Archive'),
-            React.createElement('p', { className: 'levels-subtitle' },
-                'Browse through our collection of legendary knockouts. Each entry features a classic finish for you to identify!'
+    if (showArchive) {
+        return React.createElement('div', { className: 'levels-challenge' },
+            React.createElement('div', { className: 'levels-header' },
+                React.createElement('h1', { className: 'levels-title' }, '📚 Daily Knockout Archive'),
+                React.createElement('p', { className: 'levels-subtitle' },
+                    'Browse through our collection of legendary knockouts. Each entry features a classic finish for you to identify!'
+                ),
+                React.createElement('button', {
+                    className: 'back-button-small',
+                    onClick: backToMenu
+                }, '← Back to Menu')
             ),
-            React.createElement('button', {
-                className: 'back-button-small',
-                onClick: backToMenu
-            }, '← Back to Menu')
-        ),
 
-        React.createElement('div', { className: 'random-fight-container' },
-            React.createElement('button', {
-                className: 'random-fight-button',
-                onClick: handleRandomFight
-            }, '🎲 Random Fight')
-        ),
-        React.createElement('div', { className: 'levels-container' },
-            React.createElement('div', { className: 'levels-grid' },
-                sortedArchiveData.map((archiveItem) => {
-                    const progress = archiveProgress[archiveItem.archiveNumber]
-                    const isCompleted = progress && progress.completed
-                    const isCorrect = progress && progress.correct
+            React.createElement('div', { className: 'random-fight-container' },
+                React.createElement('button', {
+                    className: 'random-fight-button',
+                    onClick: handleRandomFight
+                }, '🎲 Random Fight')
+            ),
+            React.createElement('div', { className: 'levels-container' },
+                React.createElement('div', { className: 'levels-grid' },
+                    sortedArchiveData.map((archiveItem) => {
+                        const progress = archiveProgress[archiveItem.archiveNumber]
+                        const isCompleted = progress && progress.completed
+                        const isCorrect = progress && progress.correct
 
-                    return React.createElement('div', {
-                        key: archiveItem.archiveNumber,
-                        className: `level-card archive-card ${isCompleted ? (isCorrect ? 'completed-correct' : 'completed-incorrect') : ''}`,
-                        onClick: () => handleArchiveSelect(archiveItem),
-                        style: {
-                            cursor: 'pointer'
-                        }
-                    },
-                        React.createElement('div', { className: 'archive-header' },
-                            React.createElement('div', { className: 'archive-number' }, `#${archiveItem.archiveNumber}`),
-                            React.createElement('div', { className: 'archive-date' },
-                                formatDate(archiveItem.releaseDate)
+                        return React.createElement('div', {
+                            key: archiveItem.archiveNumber,
+                            className: `level-card archive-card ${isCompleted ? (isCorrect ? 'completed-correct' : 'completed-incorrect') : ''}`,
+                            onClick: () => handleArchiveSelect(archiveItem),
+                            style: {
+                                cursor: 'pointer'
+                            }
+                        },
+                            React.createElement('div', { className: 'archive-header' },
+                                React.createElement('div', { className: 'archive-number' }, `#${archiveItem.archiveNumber}`),
+                                React.createElement('div', { className: 'archive-date' },
+                                    formatDate(archiveItem.releaseDate)
+                                ),
+                                React.createElement('div', { className: 'archive-status' },
+                                    isCompleted ? (isCorrect ? '✅' : '❌') : '▶'
+                                )
                             ),
-                            React.createElement('div', { className: 'archive-status' },
-                                isCompleted ? (isCorrect ? '✅' : '❌') : '▶'
-                            )
-                        ),
-                        isCompleted && React.createElement('div', { className: 'archive-info' },
-                            React.createElement('p', { className: 'archive-completion' },
-                                `✓ Solved in ${progress.attempts} attempt${progress.attempts !== 1 ? 's' : ''}`
-                            ),
-                            progress.hintsUsed > 0 && React.createElement('p', { className: 'hints-used-info' },
-                                `💡 ${progress.hintsUsed} hint${progress.hintsUsed !== 1 ? 's' : ''} used`
-                            ),
-                            React.createElement('p', { className: 'completion-date' },
-                                `Completed: ${new Date(progress.completedAt).toLocaleDateString()}`
+                            isCompleted && React.createElement('div', { className: 'archive-info' },
+                                React.createElement('p', { className: 'archive-completion' },
+                                    `✓ Solved in ${progress.attempts} attempt${progress.attempts !== 1 ? 's' : ''}`
+                                ),
+                                progress.hintsUsed > 0 && React.createElement('p', { className: 'hints-used-info' },
+                                    `💡 ${progress.hintsUsed} hint${progress.hintsUsed !== 1 ? 's' : ''} used`
+                                ),
+                                React.createElement('p', { className: 'completion-date' },
+                                    `Completed: ${new Date(progress.completedAt).toLocaleDateString()}`
+                                )
                             )
                         )
-                    )
-                })
+                    })
+                )
             )
         )
-    )
-}
+    }
 
 
     return React.createElement('div', { className: 'level-question' },
@@ -432,13 +512,13 @@ if (showArchive) {
                     className: 'hint-button'
                 }, `💡 Hint (${hintsUsed}/2)`),
 
-               
+
                 hintsUsed > 0 && React.createElement('div', { className: 'hints-container' },
-              
+
                     React.createElement('div', { className: 'hint-display hint-1' },
                         React.createElement('p', null, `${currentData.hint1}`)
                     ),
-                  
+
                     hintsUsed > 1 && React.createElement('div', { className: 'hint-display hint-2' },
                         React.createElement('p', null, `${currentData.hint2}`)
                     )

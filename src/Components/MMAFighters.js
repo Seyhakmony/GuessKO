@@ -435,7 +435,7 @@ const MMAFighters = ["Aalon Cruz", "Aaron Brink", "Aaron Jeffery", "Aaron Philli
 "Jesse Murray", "Jesse Ronson", "Jesse Sanders", "Jesse Strader", "Jesse Taylor", "Jessica Aguilar", "Jessica Eye", "Jessica Penne", "Jessica Rakoczy", "Jessica-rose Clark",
 "Jessin Ayari", "Jesus Aguilar", "Jesus Pinedo", "Jhonata Diniz", "Jhonata Silva", "Jhonoven Pati", "Ji Yeon Kim", "Jianping Yang", "Jim Alers", "Jim Miller",
 "Jim Mullen", "Jimi Manuwa", "Jimmie Rivera", "Jimmy Crute", "Jimmy Flick", "Jimmy Lawson", "Jimmy Quinlan", "Jimmy Wallhead", "Jimy Hettes", "Jin Soo Son",
-"Jinh Yu Frey", "Jinnosuke Kashimura", "Jiří Procházka", "Jj Aldrich", "Jj Okanovich", "Joachim Christensen", "Joanderson Brito", "Joanna Jędrzejczyk", "Joanne Wood", "Joao Elias",
+"Jinh Yu Frey", "Jinnosuke Kashimura", "Jiri Prochazka", "Jj Aldrich", "Jj Okanovich", "Joachim Christensen", "Joanderson Brito", "Joanna Jędrzejczyk", "Joanne Wood", "Joao Elias",
 "Joao Pierini", "Joao Roque", "Joao Zaiden", "Joaquim Silva", "Joaquin Buckley", "Joby Sanchez", "Jocelyn Jones-lybarger", "Jodie Esquibel", "Joe Brammer", "Joe Charles",
 "Joe Doerksen", "Joe Duffy", "Joe Ellenberger", "Joe Giannetti", "Joe Gigliotti", "Joe Lauzon", "Joe Merritt", "Joe Moriera", "Joe Pardo", "Joe Proctor",
 "Joe Pyfer", "Joe Riggs", "Joe Slick", "Joe Solecki", "Joe Son", "Joe Soto", "Joe Stevenson", "Joe Vedepo", "Joe Veres", "Joel Álvarez",
