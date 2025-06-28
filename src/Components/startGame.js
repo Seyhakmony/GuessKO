@@ -6,6 +6,55 @@ import { addPointsToUser } from "./FirebaseS/data.js";
 
 const gameData = [
   {
+    videoPath: "./clips/PimblettW_vs_Vendramini.mp4",
+    correctAnswer: "Paddy Pimblett",
+    correctVideo: "./correct/Pimblett_vs_Vendramini.mp4",
+    hint1: "Liverpool native with flamboyant personality",
+    hint2: "Known for post-fight food binges",
+  },
+  {
+    videoPath: "./clips/OrtegaW_vs_Edgar.mp4",
+    correctAnswer: "Brian Ortega",
+    correctVideo: "./correct/Ortega_vs_Edgar.mp4",
+    hint1: "T-City with dangerous submission skills",
+    hint2: "Featherweight contender from Los Angeles",
+  },
+  {
+    videoPath: "./clips/EmmetW_vs_Mitchell.mp4",
+    correctAnswer: "Josh Emmett",
+    correctVideo: "./correct/Emmet_vs_Mitchell.mp4",
+    hint1: "Power puncher",
+    hint2: "Team Alpha Male veteran",
+  },
+  {
+    videoPath: "./clips/NgannouW_vs_Overeem.mp4",
+    correctAnswer: "Francis Ngannou",
+    correctVideo: "./correct/Ngannou_vs_Overeem.mp4",
+    hint1: "Cameroonian with devastating knockout power",
+    hint2: "Former heavyweight champion turned boxer",
+  },
+  {
+    videoPath: "./clips/GastelumW_vs_Bisping.mp4",
+    correctAnswer: "Kelvin Gastelum",
+    correctVideo: "./correct/Gastelum_vs_Bisping.mp4",
+    hint1: "Mexican-American middleweight striker",
+    hint2: "Former TUF winner with boxing background",
+  },
+  {
+    videoPath: "./clips/ChimaevW_vs_Meerschaert.mp4",
+    correctAnswer: "Khamzat Chimaev",
+    correctVideo: "./correct/Chimaev_vs_Meerschaert.mp4",
+    hint1: "Chechen-Swedish wrestling phenom",
+    hint2: "Borz with dominant grappling style",
+  },
+  {
+    videoPath: "./clips/SandhagenW_vs_Edgar.mp4",
+    correctAnswer: "Cory Sandhagen",
+    correctVideo: "./correct/Sandhagen_vs_Edgar.mp4",
+    hint1: "Colorado bantamweight with long reach",
+    hint2: "Known for creative striking and knees",
+  },
+  {
     videoPath: "./clips/OliveiraW_vs_Chandler.mp4",
     correctAnswer: "Charles Oliveira",
     correctVideo: "./correct/Oliveira_vs_Chandler.mp4",
