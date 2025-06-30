@@ -5,6 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { addPointsToUser } from "./FirebaseS/data.js";
 
 const gameData = [
+   {
+    videoPath: "./clips/iliaW_vs_Oliveira.mp4",
+    correctAnswer: "Ilia Topuria",
+    correctVideo: "./correct/ilia_vs_Oliveira.mp4",
+    hint1: "Known for both his powerful punches and solid grappling",
+    hint2: "They call him El Matador and was born in Germany, but fights out of Spain — his roots are Georgian",
+    releaseDate: "2025-07-01",
+  },
   {
     videoPath: "./clips/PimblettW_vs_Vendramini.mp4",
     correctAnswer: "Paddy Pimblett",
