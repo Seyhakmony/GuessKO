@@ -10,7 +10,8 @@ const gameData = [
     correctAnswer: "Ilia Topuria",
     correctVideo: "/correct/ilia_vs_Oliveira.mp4",
     hint1: "Known for both his powerful punches and solid grappling",
-    hint2: "They call him El Matador and was born in Germany, but fights out of Spain — his roots are Georgian",
+    hint2:
+      "They call him El Matador and was born in Germany, but fights out of Spain — his roots are Georgian",
     releaseDate: "2025-07-01",
   },
   {
@@ -29,7 +30,7 @@ const gameData = [
     hint2: "Featherweight contender from Los Angeles",
     releaseDate: "2025-06-29",
   },
-    {
+  {
     videoPath: "/clips/EmmetW_vs_Mitchell.mp4",
     correctAnswer: "Josh Emmett",
     correctVideo: "/correct/Emmet_vs_Mitchell.mp4",
@@ -271,7 +272,7 @@ const gameData = [
   },
 ];
 
-const KnockoutArchive = ( ) => {
+const KnockoutArchive = () => {
   const { archiveId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -537,6 +538,14 @@ const KnockoutArchive = ( ) => {
           "p",
           { className: "levels-subtitle" },
           "Browse through our collection of legendary knockouts. Each entry features a classic finish for you to identify!"
+        ),
+        React.createElement(
+          "p",
+          {
+            className: "levels-subtitle",
+            style: { marginTop: "1rem", fontStyle: "italic", opacity: 0.8 },
+          },
+          "Note: I will no longer be continuing updates to this series and will be focusing on other projects. Thank you for your support!"
         ),
         React.createElement(
           "button",
